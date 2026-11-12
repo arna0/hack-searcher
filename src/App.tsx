@@ -1962,7 +1962,7 @@ export default function App() {
                   <div>
                     <h1 className="text-2xl font-semibold tracking-tight text-white">{isPanicMode ? 'Urgent requests' : 'People'}</h1>
                     <p className="text-sm text-brand-text-dim mt-0.5">
-                      {isPanicMode ? 'Teams that need someone today.' : `${visibleUsers.length} students looking for a hackathon team`}
+                      {isPanicMode ? 'Teams that need someone today.' : `${visibleUsers.length} ${visibleUsers.length === 1 ? 'student' : 'students'} looking for a hackathon team`}
                     </p>
                   </div>
                 </div>
