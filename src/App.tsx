@@ -433,8 +433,8 @@ const FuturisticCard = ({ children, className = "", delay = 0, isPanic = false }
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ delay, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-    whileHover={{ y: -4, borderColor: isPanic ? "rgba(239, 68, 68, 0.6)" : "rgba(99, 102, 241, 0.4)" }}
-    className={`bg-brand-surface border rounded-[24px] p-5 shadow-lg shadow-brand-primary/5 transition-all relative overflow-hidden group ${
+    whileHover={{ borderColor: isPanic ? "rgba(239, 68, 68, 0.6)" : "rgba(255, 255, 255, 0.2)" }}
+    className={`bg-brand-surface border rounded-2xl p-5 transition-all relative overflow-hidden group ${
       isPanic ? 'border-red-500/50 shadow-red-500/20' : 'border-brand-border shadow-brand-primary/5'
     } ${className}`}
   >
@@ -455,7 +455,7 @@ const FuturisticCard = ({ children, className = "", delay = 0, isPanic = false }
 );
 
 const UserSkeleton = () => (
-  <div className="bg-brand-surface border border-brand-border rounded-[24px] p-5 space-y-4 animate-pulse">
+  <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 space-y-4 animate-pulse">
     <div className="flex items-center gap-4">
       <div className="w-14 h-14 rounded-2xl bg-brand-bg/50" />
       <div className="space-y-2 flex-1">
@@ -475,7 +475,7 @@ const UserSkeleton = () => (
 );
 
 const MicroLabel = ({ children }: MicroLabelProps) => (
-  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-secondary/80 font-bold">
+  <span className="text-xs font-medium text-brand-secondary">
     {children}
   </span>
 );
@@ -493,8 +493,59 @@ const MOCK_USERS = [
   { id: 10, name: "Kenzhe Bolat", role: "Blockchain Dev", stack: "Solidity, Rust", level: "Lead", bio: "Solana and Rust. Built two hackathon dApps on devnet.", status: "online" },
 ];
 
+const NAV_ITEMS: { id: string; label: string; icon: React.ElementType }[] = [
+  { id: 'feed', label: 'People', icon: Layers },
+  { id: 'ai-match', label: 'Find teammates', icon: Sparkles },
+  { id: 'events', label: 'Hackathons', icon: Trophy },
+  { id: 'my-projects', label: 'My projects', icon: Briefcase },
+  { id: 'team-agreement', label: 'Team agreement', icon: ClipboardCheck },
+  { id: 'chat', label: 'Messages', icon: MessageSquare },
+  { id: 'notifications', label: 'Notifications', icon: Bell },
+  { id: 'profile', label: 'My profile', icon: User },
+];
+
+const AVATAR_TONES = ['bg-[#ff6b3d]/15 text-[#ff8a66]', 'bg-[#e9c46a]/15 text-[#e9c46a]', 'bg-[#7dd3c0]/15 text-[#7dd3c0]', 'bg-[#c4a7e7]/15 text-[#c4a7e7]'];
+const initials = (name: string) => name.split(' ').map((p) => p[0]).slice(0, 2).join('');
+
+const PersonCard = ({ user, index, onOpen, onInvite }: { user: typeof MOCK_USERS[number]; index: number; onOpen: () => void; onInvite: () => void }) => (
+  <motion.article
+    initial={{ opacity: 0, y: 12 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: Math.min(index, 8) * 0.04, duration: 0.3 }}
+    className="group bg-brand-surface border border-brand-border rounded-2xl p-5 flex flex-col hover:border-white/20 transition-colors"
+  >
+    <div className="flex items-start gap-3.5">
+      <div className="relative shrink-0">
+        <span className={`w-12 h-12 rounded-full grid place-items-center font-semibold ${AVATAR_TONES[user.id % AVATAR_TONES.length]}`}>
+          {initials(user.name)}
+        </span>
+        <span className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-brand-surface ${user.status === 'online' ? 'bg-emerald-400' : 'bg-stone-500'}`} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <h3 className="font-semibold text-white leading-snug truncate">{user.name}</h3>
+        <p className="text-sm text-brand-text-dim truncate">{user.role}</p>
+      </div>
+      <span className="text-[11px] font-medium text-brand-secondary border border-brand-secondary/30 rounded-full px-2 py-0.5 shrink-0">{user.level}</span>
+    </div>
+    <p className="text-sm text-stone-300 leading-relaxed mt-4 flex-1">{user.bio}</p>
+    <div className="flex flex-wrap gap-1.5 mt-4">
+      {user.stack.split(',').map((s) => (
+        <span key={s} className="text-xs text-stone-300 bg-white/[0.04] border border-brand-border rounded-md px-2 py-0.5">{s.trim()}</span>
+      ))}
+    </div>
+    <div className="flex gap-2 mt-5 pt-4 border-t border-brand-border">
+      <button onClick={onInvite} className="flex-1 py-2 rounded-lg bg-brand-primary text-[#1a0d07] text-sm font-semibold hover:brightness-110 transition cursor-pointer">
+        Invite to team
+      </button>
+      <button onClick={onOpen} className="px-3.5 py-2 rounded-lg border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer">
+        Profile
+      </button>
+    </div>
+  </motion.article>
+);
+
 const FILTERS = [
-  { id: 'all', label: 'All Roles' },
+  { id: 'all', label: 'Everyone' },
   { id: 'flutter', label: 'Flutter' },
   { id: 'design', label: 'Design' },
   { id: 'backend', label: 'Backend' },
@@ -1818,6 +1869,7 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toasts, setToasts] = useState<{ id: number, message: string, type: 'success' | 'error' | 'info' }[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = Date.now();
@@ -1829,9 +1881,17 @@ export default function App() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
+    const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  const visibleUsers = MOCK_USERS.filter((user) => {
+    const q = query.trim().toLowerCase();
+    if (q && ![user.name, user.role, user.stack].join(' ').toLowerCase().includes(q)) return false;
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'senior') return ['Senior', 'Lead', 'Expert'].includes(user.level);
+    return user.role.toLowerCase().includes(activeFilter) || user.stack.toLowerCase().includes(activeFilter);
+  });
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -1844,331 +1904,125 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-brand-bg selection:bg-brand-primary/30 text-white">
-      {/* Sidebar - Geometric Balance Pattern */}
-      <aside className="w-64 border-r border-brand-border bg-brand-bg p-6 flex flex-col justify-between shrink-0 hidden lg:flex">
-        <div className="space-y-8">
-          <div>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
-              <MicroLabel>FLUTTER HUB</MicroLabel>
-            </div>
-            <nav className="space-y-2">
-              <div 
-                onClick={() => setIsPanicMode(!isPanicMode)}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-bold transition-all cursor-pointer border ${
-                  isPanicMode 
-                  ? 'bg-red-500/10 text-red-500 border-red-500/20' 
-                  : 'text-white/40 hover:text-white border-transparent'
+      {/* Sidebar */}
+      <aside className="w-60 border-r border-brand-border bg-brand-bg px-4 py-5 flex-col justify-between shrink-0 hidden lg:flex">
+        <div>
+          <button onClick={() => setActiveTab('feed')} className="flex items-center gap-2.5 px-2 mb-7 cursor-pointer">
+            <span className="w-8 h-8 rounded-lg bg-brand-primary grid place-items-center text-[#1a0d07] font-bold text-sm">HS</span>
+            <span className="text-[15px] font-semibold tracking-tight text-white">Hack Searcher</span>
+          </button>
+          <nav className="space-y-0.5">
+            {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-[13.5px] transition-colors cursor-pointer ${
+                  activeTab === id ? 'bg-brand-surface text-white font-medium' : 'text-brand-text-dim hover:text-white hover:bg-brand-surface/60'
                 }`}
               >
-                <div className="relative">
-                  <AlertTriangle className={`w-4 h-4 ${isPanicMode ? 'animate-bounce' : ''}`} />
-                  {isPanicMode && <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-ping" />}
-                </div> 
-                PANIC MODE
-              </div>
-              <div className="h-px bg-brand-border my-4 opacity-50" />
-              <div 
-                onClick={() => setActiveTab('feed')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'feed' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <Layers className="w-4 h-4" /> User Feed
-              </div>
-              <div 
-                onClick={() => setActiveTab('profile')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'profile' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <User className="w-4 h-4" /> User Profile
-              </div>
-              <div 
-                onClick={() => setActiveTab('ai-match')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'ai-match' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <div className="relative">
-                  <Sparkles className="w-4 h-4" />
-                  <motion.div 
-                    animate={{ opacity: [0, 1, 0] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="absolute inset-0 bg-brand-primary blur-sm rounded-full"
-                  />
-                </div> AI Matchmaking
-              </div>
-              <div 
-                onClick={() => setActiveTab('events')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'events' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <Trophy className="w-4 h-4" /> Hackathons
-              </div>
-              <div 
-                onClick={() => setActiveTab('my-projects')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'my-projects' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <Briefcase className="w-4 h-4" /> My Projects
-              </div>
-              <div 
-                onClick={() => setActiveTab('chat')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'chat' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <Zap className="w-4 h-4" /> Global Chat
-              </div>
-              <div 
-                onClick={() => setActiveTab('notifications')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'notifications' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <div className="relative">
-                  <Bell className="w-4 h-4" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-brand-secondary rounded-full border border-brand-bg" />
-                </div> Notifications
-              </div>
-              <div 
-                onClick={() => setActiveTab('team-agreement')}
-                className={`flex items-center gap-3 p-2 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                  activeTab === 'team-agreement' 
-                  ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                  : 'opacity-40 hover:opacity-100 border-transparent'
-                }`}
-              >
-                <ClipboardCheck className="w-4 h-4" /> Team Agreement
-              </div>
-            </nav>
-          </div>
-          <div className="pt-8 border-t border-brand-border">
-            <p className="text-[10px] font-mono opacity-30 leading-relaxed uppercase tracking-wider">
-              Hack Searcher<br/>student prototype
-            </p>
-          </div>
+                <Icon className={`w-4 h-4 ${activeTab === id ? 'text-brand-primary' : ''}`} />
+                {label}
+                {id === 'notifications' && <span className="ml-auto text-[11px] font-medium text-brand-bg bg-brand-secondary rounded-full px-1.5">3</span>}
+              </button>
+            ))}
+          </nav>
+          <div className="h-px bg-brand-border my-5" />
+          <button
+            onClick={() => { setActiveTab('feed'); setIsPanicMode(!isPanicMode); }}
+            className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-[13.5px] transition-colors cursor-pointer ${
+              isPanicMode ? 'bg-red-500/10 text-red-400' : 'text-brand-text-dim hover:text-white hover:bg-brand-surface/60'
+            }`}
+          >
+            <AlertTriangle className="w-4 h-4" /> Urgent requests
+            {isPanicMode && <span className="ml-auto text-[11px]">on</span>}
+          </button>
         </div>
-        <div className="p-4 rounded-2xl bg-brand-surface border border-brand-border shadow-inner">
-          <div className="text-[11px] font-mono text-brand-secondary mb-1 uppercase tracking-widest">Server</div>
-          <div className="text-xs font-medium text-white/80 tracking-tight flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-            Online
-          </div>
-        </div>
+        <button onClick={() => setActiveTab('profile')} className="flex items-center gap-3 p-2 rounded-xl hover:bg-brand-surface transition-colors cursor-pointer text-left">
+          <span className="w-9 h-9 rounded-full bg-brand-secondary/20 text-brand-secondary grid place-items-center text-sm font-semibold">A</span>
+          <span className="leading-tight">
+            <span className="block text-sm font-medium text-white">Arnur</span>
+            <span className="block text-xs text-brand-text-dim">Looking for a team</span>
+          </span>
+        </button>
       </aside>
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {activeTab === 'feed' && (
           <>
-            <header className={`h-16 border-b transition-colors duration-500 flex items-center justify-between px-6 sm:px-8 shrink-0 z-20 ${
-              isPanicMode ? 'bg-red-500/5 border-red-500/20' : 'bg-brand-bg border-brand-border'
-            }`}>
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={() => setIsMobileMenuOpen(true)}
-                  className="lg:hidden p-2 bg-brand-surface border border-brand-border rounded-xl text-white/60 hover:text-white transition-colors cursor-pointer"
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
-                <div className={`hidden sm:flex items-center px-3 py-1.5 rounded-xl border transition-colors duration-500 text-xs font-mono gap-2 ${
-                  isPanicMode ? 'bg-red-500/10 border-red-500/20 text-red-500' : 'bg-brand-surface border-brand-border text-brand-primary'
-                }`}>
-                  <Search className="w-3 h-3" />
-                  <span>Search people</span>
+            <header className="border-b border-brand-border bg-brand-bg shrink-0 z-20">
+              <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-6 pb-4 flex flex-wrap items-end justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(true)}
+                    className="lg:hidden p-2 border border-brand-border rounded-lg text-brand-text-dim hover:text-white cursor-pointer"
+                  >
+                    <Menu className="w-5 h-5" />
+                  </button>
+                  <div>
+                    <h1 className="text-2xl font-semibold tracking-tight text-white">{isPanicMode ? 'Urgent requests' : 'People'}</h1>
+                    <p className="text-sm text-brand-text-dim mt-0.5">
+                      {isPanicMode ? 'Teams that need someone today.' : `${visibleUsers.length} students looking for a hackathon team`}
+                    </p>
+                  </div>
                 </div>
-                <h1 className="text-lg font-bold tracking-tight text-white/90 font-sans uppercase">
-                  {isPanicMode ? 'Urgent' : 'Hub'}
-                </h1>
+                <label className="flex items-center gap-2 w-full sm:w-72 px-3 py-2 rounded-lg border border-brand-border bg-brand-surface focus-within:border-brand-primary/60 transition-colors">
+                  <Search className="w-4 h-4 text-brand-text-dim" />
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search by name, role or stack"
+                    className="bg-transparent outline-none text-sm text-white placeholder:text-brand-text-dim w-full"
+                  />
+                </label>
               </div>
-              <div className="flex items-center gap-6">
-                 {isPanicMode ? (
-                   <motion.div 
-                     animate={{ opacity: [0.4, 1, 0.4] }}
-                     transition={{ repeat: Infinity, duration: 1.5 }}
-                     className="hidden md:flex items-center gap-2 text-red-500 font-mono text-[10px] font-bold"
-                   >
-                     <div className="w-2 h-2 bg-red-500 rounded-full" />
-                     Urgent mode on
-                   </motion.div>
-                 ) : (
-                   <div className="flex items-center gap-4">
-                      <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-brand-primary/10 rounded-full border border-brand-primary/20">
-                         <div className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse" />
-                         <span className="text-[10px] font-mono font-bold text-brand-primary tracking-wide">Online</span>
-                      </div>
-                   </div>
-                 )}
+              <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-4 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                {FILTERS.map((f) => (
+                  <button
+                    key={f.id}
+                    onClick={() => setActiveFilter(f.id)}
+                    className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-[13px] border transition-colors cursor-pointer ${
+                      activeFilter === f.id
+                        ? 'bg-white text-brand-bg border-white font-medium'
+                        : 'border-brand-border text-brand-text-dim hover:text-white hover:border-white/30'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+                <button
+                  onClick={handleRefresh}
+                  title="Refresh"
+                  className="ml-auto p-2 rounded-full border border-brand-border text-brand-text-dim hover:text-white transition-colors cursor-pointer"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                </button>
               </div>
             </header>
 
-            <div className={`flex-1 overflow-y-auto transition-colors duration-500 scroll-smooth no-scrollbar ${isPanicMode ? 'bg-red-500/5' : 'bg-brand-bg/50'}`}>
-              <PullToRefreshIndicator isRefreshing={isRefreshing} />
-              
-              <div className={`sticky top-0 z-10 backdrop-blur-md border-b px-6 sm:px-8 py-4 flex items-center justify-between gap-4 transition-colors duration-500 ${
-                isPanicMode ? 'bg-red-950/40 border-red-500/20' : 'bg-brand-bg/80 border-brand-border'
-              }`}>
-                <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1">
-                    <button 
-                      onClick={handleRefresh}
-                      className="p-2 bg-brand-surface border border-brand-border rounded-xl text-white/40 hover:text-brand-primary transition-all hover:scale-110 active:rotate-180 cursor-pointer"
-                    >
-                      <RefreshCw className="w-4 h-4" />
-                    </button>
-                    {FILTERS.map((f) => (
-                      <button
-                        key={f.id}
-                        onClick={() => {
-                          setActiveFilter(f.id);
-                          showToast(`Filter: ${f.label}`);
-                        }}
-                        className={`whitespace-nowrap px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border cursor-pointer ${
-                          activeFilter === f.id 
-                          ? (isPanicMode ? 'bg-red-500 border-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/30')
-                          : (isPanicMode ? 'bg-red-500/10 border-red-500/20 text-red-500/60' : 'bg-brand-surface border-brand-border text-white/40 hover:text-white/80 hover:border-brand-primary/30')
-                        }`}
-                      >
-                        {f.label}
-                      </button>
+            <div className={`flex-1 overflow-y-auto scroll-smooth no-scrollbar ${isPanicMode ? 'bg-red-500/[0.03]' : ''}`}>
+              <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 pb-28">
+                {isPanicMode && <div className="mb-8"><SOSWidget /></div>}
+
+                {isLoading ? (
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {[1, 2, 3, 4, 5, 6].map((i) => <UserSkeleton key={i} />)}
+                  </div>
+                ) : visibleUsers.length > 0 ? (
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {visibleUsers.map((user, idx) => (
+                      <PersonCard
+                        key={user.id}
+                        user={user}
+                        index={idx}
+                        onOpen={() => setActiveTab('profile')}
+                        onInvite={() => showToast(`Invite sent to ${user.name}`, 'success')}
+                      />
                     ))}
                   </div>
-                </div>
-              </div>
-
-              <div className="max-w-3xl mx-auto px-6 sm:px-8 py-10 space-y-8">
-                {isPanicMode && <SOSWidget />}
-
-                <AnimatePresence mode="popLayout" initial={false}>
-                  {isLoading ? (
-                    <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="space-y-6">
-                      {[1, 2, 3, 4].map((i) => <UserSkeleton key={i} />)}
-                    </motion.div>
-                  ) : (
-                    <motion.div key="feed" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6 pb-32">
-                      
-                      {/* Priority Panic Card */}
-                      {isPanicMode && activeFilter === 'all' && (
-                        <div className="relative mb-12">
-                          <div className="absolute -inset-1 bg-red-500/20 blur-xl rounded-[32px] animate-pulse" />
-                          <FuturisticCard isPanic={true} delay={0} className="!bg-red-950/20 border-red-500/40 shadow-2xl shadow-red-500/10">
-                            <div className="flex flex-col sm:flex-row gap-6">
-                              <div className="shrink-0 relative">
-                                <div className="w-20 h-20 rounded-[24px] bg-red-500 flex items-center justify-center border-4 border-brand-bg shadow-xl">
-                                  <User className="w-10 h-10 text-white" />
-                                </div>
-                                <div className="absolute -bottom-2 -right-2 bg-brand-bg p-1.5 rounded-xl border border-red-500/50">
-                                  <AlertTriangle className="w-4 h-4 text-red-500" />
-                                </div>
-                              </div>
-                              <div className="flex-1 space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <h3 className="text-xl font-bold text-white tracking-tight uppercase">Daniyar Sadykov</h3>
-                                      <span className="px-2 py-0.5 bg-red-500 text-white text-[8px] font-bold rounded uppercase">Critical</span>
-                                    </div>
-                                    <p className="text-xs font-mono font-bold text-red-400 tracking-[0.2em] uppercase">Web3 developer</p>
-                                  </div>
-                                  <div className="text-right">
-                                     <div className="text-[10px] font-mono text-red-500 font-bold uppercase mb-1">SOS Active</div>
-                                     <div className="text-lg font-mono font-bold text-white leading-none">18:42:04</div>
-                                  </div>
-                                </div>
-                                <p className="text-sm text-brand-text-dim leading-relaxed italic">
-                                  "Urgently seeking a Senior React/Web3 dev for a 24-hour sprint. Scaling bottleneck on L2 bridge. High bounty."
-                                </p>
-                                <div className="flex gap-3 pt-2">
-                                  <button className="flex-1 py-3 bg-red-500 text-white text-xs font-bold uppercase rounded-xl hover:bg-red-400 transition-colors shadow-lg shadow-red-500/20">Init Response</button>
-                                  <button className="px-6 py-3 bg-brand-bg border border-red-500/20 text-red-500 text-xs font-bold uppercase rounded-xl hover:bg-red-500/10 transition-colors">Details</button>
-                                </div>
-                              </div>
-                            </div>
-                          </FuturisticCard>
-                        </div>
-                      )}
-
-                      <div className="flex items-center justify-between mb-2">
-                        <div>
-                          <h2 className="text-xl font-bold text-white tracking-tight">{isPanicMode ? 'Urgent requests' : 'Active Contributors'}</h2>
-                          <p className="text-xs text-brand-text-dim font-mono">
-                            {isPanicMode ? 'Sorted by urgency' : '10 people looking for a team'}
-                          </p>
-                        </div>
-                      </div>
-
-                      {MOCK_USERS.filter(user => {
-                        if (activeFilter === 'all') return true;
-                        if (activeFilter === 'senior') return user.level === 'Senior' || user.level === 'Lead' || user.level === 'Expert';
-                        return user.role.toLowerCase().includes(activeFilter.toLowerCase()) || 
-                               user.stack.toLowerCase().includes(activeFilter.toLowerCase());
-                      }).length > 0 ? (
-                        MOCK_USERS.filter(user => {
-                          if (activeFilter === 'all') return true;
-                          if (activeFilter === 'senior') return user.level === 'Senior' || user.level === 'Lead' || user.level === 'Expert';
-                          return user.role.toLowerCase().includes(activeFilter.toLowerCase()) || 
-                                 user.stack.toLowerCase().includes(activeFilter.toLowerCase());
-                        }).map((user, idx) => (
-                          <div key={user.id} onClick={() => { setActiveTab('profile'); showToast(`Redirecting to ${user.name}`); }} className="cursor-pointer">
-                            <FuturisticCard delay={idx * 0.05}>
-                              <div className="flex flex-col sm:flex-row gap-6">
-                                <div className="shrink-0 relative">
-                                  <div className="w-16 h-16 rounded-[20px] bg-brand-primary/20 flex items-center justify-center border border-brand-primary/10">
-                                    <User className="w-7 h-7 text-brand-primary" />
-                                  </div>
-                                  <div className="absolute -bottom-1 -right-1 bg-brand-surface p-1 rounded-lg border border-brand-border">
-                                    <CheckCircle2 className="w-3 h-3 text-brand-secondary" />
-                                  </div>
-                                </div>
-                                <div className="flex-1 space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <div>
-                                      <h3 className="text-lg font-bold text-white group-hover:text-brand-primary transition-colors">{user.name}</h3>
-                                      <div className="flex items-center gap-2 text-brand-secondary">
-                                        <span className="text-xs font-mono font-bold tracking-widest uppercase">{user.role}</span>
-                                        <span className="text-xs text-white/20">•</span>
-                                        <span className="text-xs text-white/60">{user.level}</span>
-                                      </div>
-                                    </div>
-                                    
-                                    <div className="flex items-center gap-3">
-                                       <VideoPitch />
-                                    </div>
-                                  </div>
-                                  <p className="text-sm text-brand-text-dim leading-relaxed max-w-lg">{user.bio}</p>
-                                  
-                                  <div className="pt-2">
-                                     <VoiceWaveform />
-                                  </div>
-                                </div>
-                              </div>
-                            </FuturisticCard>
-                          </div>
-                        ))
-                      ) : (
-                        <EmptySearchIllustration />
-                      )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                ) : (
+                  <EmptySearchIllustration />
+                )}
               </div>
             </div>
           </>
