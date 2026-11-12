@@ -70,10 +70,10 @@ const TeamAgreementBuilder = () => {
   const [agreement, setAgreement] = useState({
     title: "Project Phoenix Sprint",
     responsibilities: [
-      { id: 1, task: "Cloud Infrastructure & CI/CD", owner: "Marcus Volt", category: "DevOps" },
-      { id: 2, task: "Core Neural Engine Architecture", owner: "Alex Rivera", category: "Backend" },
-      { id: 3, task: "Motion Design & UI Components", owner: "Sarah Chen", category: "Design" },
-      { id: 4, task: "Pitch Deck & Presentation", owner: "Elena K.", category: "Copy" },
+      { id: 1, task: "Cloud Infrastructure & CI/CD", owner: "Timur Akhmetov", category: "DevOps" },
+      { id: 2, task: "Backend API and database", owner: "Daniyar Sadykov", category: "Backend" },
+      { id: 3, task: "Motion Design & UI Components", owner: "Aruzhan Bekova", category: "Design" },
+      { id: 4, task: "Pitch Deck & Presentation", owner: "Elena Kim", category: "Copy" },
       { id: 5, task: "Quality Assurance & Testing", owner: "", category: "Dev" },
     ]
   });
@@ -89,7 +89,7 @@ const TeamAgreementBuilder = () => {
     setAgreement(prev => ({
       ...prev,
       responsibilities: prev.responsibilities.map(r => 
-        r.id === taskId ? { ...r, owner: r.owner ? "" : "Alex Rivera" } : r
+        r.id === taskId ? { ...r, owner: r.owner ? "" : "Daniyar Sadykov" } : r
       )
     }));
   };
@@ -103,9 +103,9 @@ const TeamAgreementBuilder = () => {
               <div className="p-2 bg-brand-primary/20 rounded-xl">
                  <ClipboardCheck className="w-6 h-6 text-brand-primary" />
               </div>
-              <h1 className="text-3xl font-bold text-white tracking-tighter uppercase italic">Team Agreement Builder</h1>
+              <h1 className="text-3xl font-bold text-white tracking-tight ">Team Agreement Builder</h1>
             </div>
-            <p className="text-brand-text-dim text-sm font-mono tracking-widest pl-11">INITIATING_RESPONSIBILITY_SYNC_V1.0</p>
+            <p className="text-brand-text-dim text-sm font-mono tracking-widest pl-11">Agree on who does what before the clock starts</p>
           </div>
           <div className="flex gap-3">
             <button className="flex items-center gap-2 px-6 py-3 bg-brand-surface border border-brand-border rounded-2xl text-xs font-bold uppercase tracking-widest hover:border-brand-primary/50 transition-all">
@@ -122,9 +122,9 @@ const TeamAgreementBuilder = () => {
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-brand-surface/50 border border-brand-border rounded-[32px] p-8 space-y-8 backdrop-blur-sm">
               <div className="flex items-center justify-between">
-                 <h2 className="text-xl font-bold text-white">Action Items Cluster</h2>
+                 <h2 className="text-xl font-bold text-white">Action items</h2>
                  <div className="flex items-center gap-2 text-[10px] font-mono text-brand-secondary uppercase bg-brand-bg px-3 py-1 rounded-full border border-brand-border">
-                    <Check className="w-3 h-3" /> 4/5 Syncing
+                    <Check className="w-3 h-3" /> 4 of 5 done
                  </div>
               </div>
 
@@ -167,7 +167,7 @@ const TeamAgreementBuilder = () => {
 
           {/* Infographic Visualization */}
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-brand-surface to-brand-bg border border-brand-border rounded-[40px] p-8 aspect-square relative flex flex-col items-center justify-center overflow-hidden">
+            <div className="bg-brand-surface border border-brand-border rounded-[40px] p-8 aspect-square relative flex flex-col items-center justify-center overflow-hidden">
                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5" />
                
                {/* Central Radar-like Viz */}
@@ -175,9 +175,9 @@ const TeamAgreementBuilder = () => {
                   <div className="absolute inset-0 border-2 border-dashed border-brand-primary/10 rounded-full animate-[spin_60s_linear_infinite]" />
                   <div className="absolute inset-[20%] border border-dashed border-blue-500/20 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
                   
-                  <div className="z-10 bg-brand-bg border-2 border-brand-primary p-4 rounded-3xl shadow-[0_0_30px_rgba(99,102,241,0.3)] text-center">
-                    <div className="text-[10px] font-mono text-brand-primary font-bold mb-1">TEAM_CORE</div>
-                    <div className="text-sm font-bold text-white uppercase italic">PHOENIX</div>
+                  <div className="z-10 bg-brand-bg border-2 border-brand-primary p-4 rounded-3xl text-center">
+                    <div className="text-[10px] font-mono text-brand-primary font-bold mb-1">TEAM</div>
+                    <div className="text-sm font-bold text-white ">PHOENIX</div>
                   </div>
 
                   {categories.map((cat, i) => {
@@ -210,8 +210,8 @@ const TeamAgreementBuilder = () => {
                </div>
 
                <div className="absolute bottom-8 left-8 right-8 text-center pt-6 border-t border-white/5">
-                  <div className="text-[10px] font-mono text-brand-secondary font-bold uppercase mb-2">Responsibility Matrix Generated</div>
-                  <div className="text-xs text-brand-text-dim px-4">Distributed ownership across 4 neural nodes. Harmony level: <span className="text-brand-primary font-bold">OPTIMAL</span></div>
+                  <div className="text-[10px] font-mono text-brand-secondary font-bold uppercase mb-2">Roles assigned</div>
+                  <div className="text-xs text-brand-text-dim px-4">Work is split between 4 people. Balance: <span className="text-brand-primary font-bold">OPTIMAL</span></div>
                </div>
             </div>
 
@@ -221,7 +221,7 @@ const TeamAgreementBuilder = () => {
                      <AlertTriangle className="w-5 h-5 text-orange-500" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-white uppercase">Sync Alert</div>
+                    <div className="text-xs font-bold text-white uppercase">Heads up</div>
                     <div className="text-[10px] text-brand-text-dim italic">1 unassigned task remaining</div>
                   </div>
                </div>
@@ -282,7 +282,7 @@ const VideoPitch = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary p-[2px] cursor-pointer relative group"
+        className="w-12 h-12 rounded-full bg-brand-primary p-[2px] cursor-pointer relative group"
       >
         <div className="w-full h-full rounded-full bg-brand-bg flex items-center justify-center overflow-hidden relative">
           <div className="absolute inset-0 bg-brand-primary/20 group-hover:bg-brand-primary/40 transition-colors" />
@@ -324,7 +324,7 @@ const VideoPitch = () => {
               <div className="absolute bottom-10 left-6 right-6 space-y-4">
                  <div className="space-y-1">
                     <h4 className="text-xl font-bold text-white tracking-tight">"Ready to scale your UI"</h4>
-                    <p className="text-xs text-white/60">Alex Rivera • 15sec Intro</p>
+                    <p className="text-xs text-white/60">Daniyar Sadykov • 15sec Intro</p>
                  </div>
                  
                  <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
@@ -394,9 +394,9 @@ const EmptySearchIllustration = () => (
       </div>
     </div>
     <div className="space-y-2">
-      <h3 className="text-xl font-bold text-white uppercase tracking-tighter italic">No Neural Matches Found</h3>
+      <h3 className="text-xl font-bold text-white uppercase tracking-tight">Nobody matches these filters</h3>
       <p className="text-sm text-brand-text-dim max-w-xs font-mono">
-        INITIALIZING_EXPANDED_SCAN... Adjust your filters or explore new tech nodes to expand your search cluster.
+        Try a different role or level.
       </p>
     </div>
     <button className="px-6 py-2.5 bg-brand-surface border border-brand-border rounded-xl text-xs font-bold text-brand-primary uppercase tracking-widest hover:border-brand-primary transition-all">
@@ -481,16 +481,16 @@ const MicroLabel = ({ children }: MicroLabelProps) => (
 );
 
 const MOCK_USERS = [
-  { id: 1, name: "Alex Rivera", role: "Senior Flutter Dev", stack: "Dart, Firebase", level: "Senior", bio: "Building fluid mobile experiences with Clean Architecture.", status: "online" },
-  { id: 2, name: "Sarah Chen", role: "UI/UX Designer", stack: "Figma, Framer", level: "Middle", bio: "Specializing in high-fidelity prototypes and motion systems.", status: "online" },
-  { id: 3, name: "Marcus Volt", role: "Backend Architect", stack: "Go, Kubernetes", level: "Lead", bio: "Scaling distributed systems with focus on observability.", status: "offline" },
-  { id: 4, name: "Elena K.", role: "Web Enthusiast", stack: "React, Three.js", level: "Senior", bio: "Living at the intersection of 3D web and performance.", status: "online" },
-  { id: 5, name: "Dave Matrix", role: "Mobile Engineer", stack: "Kotlin, Swift", level: "Middle", bio: "Turning complex requirements into simple, elegant code.", status: "online" },
-  { id: 6, name: "Inna Neural", role: "AI Researcher", stack: "Python, PyTorch", level: "PhD", bio: "Deciphering neural patterns for next-gen matchmaking.", status: "offline" },
-  { id: 7, name: "Zack Frame", role: "Frontend Dev", stack: "Next.js, Tailwind", level: "Senior", bio: "Pixel perfectionist with a lens for accessibility.", status: "online" },
-  { id: 8, name: "Lana Cloud", role: "DevOps Lead", stack: "AWS, Terraform", level: "Expert", bio: "Automating the future of deployment pipelines.", status: "online" },
-  { id: 9, name: "Ryu Design", role: "Brand Identity", stack: "Adobe Suite", level: "Senior", bio: "Visual storytelling through bold geometry.", status: "offline" },
-  { id: 10, name: "Ken Bit", role: "Blockchain Dev", stack: "Solidity, Rust", level: "Lead", bio: "Securing the decentralized future one block at a time.", status: "online" },
+  { id: 1, name: "Daniyar Sadykov", role: "Senior Flutter Dev", stack: "Dart, Firebase", level: "Senior", bio: "Flutter apps for two startups in Almaty. Likes clean state management.", status: "online" },
+  { id: 2, name: "Aruzhan Bekova", role: "UI/UX Designer", stack: "Figma, Framer", level: "Middle", bio: "Designs in Figma, tests with real users, hates lorem ipsum.", status: "online" },
+  { id: 3, name: "Timur Akhmetov", role: "Backend Architect", stack: "Go, Kubernetes", level: "Lead", bio: "Go backends and Postgres. Two hackathon finals in 2025.", status: "offline" },
+  { id: 4, name: "Elena Kim", role: "Web Enthusiast", stack: "React, Three.js", level: "Senior", bio: "Three.js and React. Makes things load fast on school laptops.", status: "online" },
+  { id: 5, name: "Dias Nurlanov", role: "Mobile Engineer", stack: "Kotlin, Swift", level: "Middle", bio: "Native Android and iOS. Looking for a team for the next hackathon.", status: "online" },
+  { id: 6, name: "Inkar Seitkali", role: "AI Researcher", stack: "Python, PyTorch", level: "PhD", bio: "ML student, works on recommendation models in PyTorch.", status: "offline" },
+  { id: 7, name: "Zhanibek Omarov", role: "Frontend Dev", stack: "Next.js, Tailwind", level: "Senior", bio: "Next.js and Tailwind. Checks every page with a screen reader.", status: "online" },
+  { id: 8, name: "Lana Tsoi", role: "DevOps Lead", stack: "AWS, Terraform", level: "Expert", bio: "Sets up CI, Docker and AWS so the team can demo on time.", status: "online" },
+  { id: 9, name: "Raiymbek Ali", role: "Brand Identity", stack: "Adobe Suite", level: "Senior", bio: "Logos, pitch decks and slides that judges remember.", status: "offline" },
+  { id: 10, name: "Kenzhe Bolat", role: "Blockchain Dev", stack: "Solidity, Rust", level: "Lead", bio: "Solana and Rust. Built two hackathon dApps on devnet.", status: "online" },
 ];
 
 const FILTERS = [
@@ -532,7 +532,7 @@ const EventCard = ({ event }: any) => (
         </div>
         <div className="flex sm:flex-col items-end gap-1">
           <span className="text-xs font-mono text-brand-text-dim uppercase tracking-wider">Prize Pool</span>
-          <span className="text-lg font-bold text-green-400 tracking-tighter">{event.prize}</span>
+          <span className="text-lg font-bold text-green-400 tracking-tight">{event.prize}</span>
         </div>
       </div>
 
@@ -579,23 +579,23 @@ const EventsView = () => {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <div className="flex items-center gap-2 mb-2">
-              <Trophy className="w-5 h-5 text-brand-primary animate-bounce" />
+              <Trophy className="w-5 h-5 text-brand-primary" />
               <MicroLabel>Arena Beta</MicroLabel>
             </div>
-            <h1 className="text-4xl font-bold tracking-tighter text-white">Hackathon <span className="text-brand-primary">Explorer</span></h1>
+            <h1 className="text-4xl font-bold tracking-tight text-white">Hackathon <span className="text-brand-primary">Explorer</span></h1>
             <p className="text-brand-text-dim text-sm font-medium">Connect, build, and win global prizes with the best squads.</p>
           </div>
           
           <div className="flex bg-brand-surface p-1 rounded-2xl border border-brand-border shrink-0 font-mono text-[10px] font-bold uppercase tracking-widest shadow-inner">
              <button 
                onClick={() => setStatus('upcoming')}
-               className={`px-6 py-3 rounded-xl transition-all cursor-pointer ${status === 'upcoming' ? 'bg-brand-primary text-white shadow-[0_0_15px_rgba(99,102,241,0.3)]' : 'text-white/40 hover:text-white'}`}
+               className={`px-6 py-3 rounded-xl transition-all cursor-pointer ${status === 'upcoming' ? 'bg-brand-primary text-white' : 'text-white/40 hover:text-white'}`}
              >
                Upcoming
              </button>
              <button 
                onClick={() => setStatus('past')}
-               className={`px-6 py-3 rounded-xl transition-all cursor-pointer ${status === 'past' ? 'bg-brand-primary text-white shadow-[0_0_15px_rgba(99,102,241,0.3)]' : 'text-white/40 hover:text-white'}`}
+               className={`px-6 py-3 rounded-xl transition-all cursor-pointer ${status === 'past' ? 'bg-brand-primary text-white' : 'text-white/40 hover:text-white'}`}
              >
                Past
              </button>
@@ -609,7 +609,7 @@ const EventsView = () => {
             placeholder="Search by event title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-brand-surface border border-brand-border rounded-[24px] py-6 pl-16 pr-6 outline-none text-white font-mono text-sm placeholder:text-brand-text-dim focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all shadow-[0_0_0px_#6366F1] focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+            className="w-full bg-brand-surface border border-brand-border rounded-[24px] py-6 pl-16 pr-6 outline-none text-white font-mono text-sm placeholder:text-brand-text-dim focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all focus:"
           />
           <div className="absolute right-6 top-1/2 -translate-y-1/2 flex gap-3 text-brand-secondary/40">
              <Target className="w-4 h-4" />
@@ -663,14 +663,14 @@ const SOSWidget = ({ time = "23:59:59", message = "Need a Web3 pro ASAP!" }) => 
             <Clock className="w-4 h-4 text-red-500 animate-pulse" />
             <span className="text-[10px] font-mono font-bold text-red-500 uppercase tracking-widest">Time Remaining</span>
           </div>
-          <div className="text-3xl font-mono font-bold text-white tracking-tighter">
+          <div className="text-3xl font-mono font-bold text-white tracking-tight">
             {time}
           </div>
         </div>
         <div className="w-px h-12 bg-red-500/20 hidden sm:block" />
         <div className="flex-1 space-y-2">
            <div className="flex items-center gap-2">
-             <div className="px-2 py-0.5 bg-red-500 text-white text-[9px] font-bold rounded uppercase tracking-tighter animate-bounce">Panic SOS</div>
+             <div className="px-2 py-0.5 bg-red-500 text-white text-[9px] font-bold rounded uppercase tracking-tight">Panic SOS</div>
              <MicroLabel>Broadcast Message</MicroLabel>
            </div>
            <p className="text-sm font-bold text-white italic group-hover:text-red-400 transition-colors leading-relaxed">
@@ -698,7 +698,7 @@ const AIMatchmakingView = () => {
       setMatches([
         { 
           id: 1, 
-          name: "Sarah Chen", 
+          name: "Aruzhan Bekova", 
           percentage: 98, 
           role: "UX Architect",
           reason: "You both have 3+ years in Flutter and have built Firebase-driven analytics. Her design focus perfectly fills your architectural style.",
@@ -706,7 +706,7 @@ const AIMatchmakingView = () => {
         },
         { 
           id: 2, 
-          name: "Marcus Volt", 
+          name: "Timur Akhmetov", 
           percentage: 92, 
           role: "Backend Specialist",
           reason: "Both of you are active in the Rust-Dart FFI community. He solves your need for low-level performance optimization.",
@@ -723,9 +723,9 @@ const AIMatchmakingView = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-5 h-5 text-brand-primary" />
-              <MicroLabel>AI-Powered Neural Search</MicroLabel>
+              <MicroLabel>Team matching</MicroLabel>
             </div>
-            <h1 className="text-3xl font-bold tracking-tighter text-white">Neural <span className="text-brand-primary">Matchmaking</span></h1>
+            <h1 className="text-3xl font-bold tracking-tight text-white">Find <span className="text-brand-primary">teammates</span></h1>
           </div>
           <button 
             onClick={startSearch}
@@ -733,7 +733,7 @@ const AIMatchmakingView = () => {
             className="flex items-center gap-2 px-6 py-3 bg-brand-surface border border-brand-primary/20 hover:border-brand-primary rounded-2xl text-xs font-bold font-mono uppercase tracking-widest text-brand-primary transition-all cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${isSearching ? 'animate-spin' : ''}`} />
-            Run Neural Analysis
+            Find matches
           </button>
         </div>
       </header>
@@ -762,7 +762,7 @@ const AIMatchmakingView = () => {
               className="relative z-10 w-48 h-48 border-2 border-dashed border-brand-primary/40 rounded-full flex items-center justify-center"
             >
               <div className="w-40 h-40 border-2 border-brand-primary/20 rounded-full flex items-center justify-center animate-ping" />
-              <div className="absolute w-32 h-32 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-full blur-xl opacity-40" />
+              <div className="absolute w-32 h-32 bg-brand-primary rounded-full blur-xl opacity-40" />
               <Sparkles className="w-12 h-12 text-white relative z-20" />
             </motion.div>
 
@@ -786,9 +786,9 @@ const AIMatchmakingView = () => {
 
             <div className="absolute -bottom-20 text-center">
                <h3 className="text-sm font-bold font-mono tracking-[0.2em] text-brand-primary uppercase animate-pulse">
-                 {isSearching ? 'Analyzing Neural Patterns...' : 'Ready for Sync'}
+                 {isSearching ? 'Looking for people...' : 'Ready'}
                </h3>
-               <p className="text-[10px] text-brand-text-dim mt-2 uppercase tracking-widest">Scanning local and global clusters</p>
+               <p className="text-[10px] text-brand-text-dim mt-2 uppercase tracking-widest">Matches by role, stack and level</p>
             </div>
           </div>
         ) : null}
@@ -808,7 +808,7 @@ const AIMatchmakingView = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-[24px] bg-brand-bg border border-brand-border p-1">
-                       <div className="w-full h-full rounded-[20px] bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-xl font-bold">
+                       <div className="w-full h-full rounded-[20px] bg-brand-primary flex items-center justify-center text-xl font-bold">
                          {match.name[0]}
                        </div>
                     </div>
@@ -818,7 +818,7 @@ const AIMatchmakingView = () => {
                     </div>
                   </div>
                   <div className="bg-brand-primary/10 border border-brand-primary/30 px-4 py-2 rounded-2xl">
-                    <span className="text-lg font-bold text-brand-primary font-mono tracking-tighter">{match.percentage}%</span>
+                    <span className="text-lg font-bold text-brand-primary font-mono tracking-tight">{match.percentage}%</span>
                     <span className="text-[8px] block font-mono text-brand-primary uppercase font-bold text-center">Match</span>
                   </div>
                 </div>
@@ -902,7 +902,7 @@ const MatchOverlay = ({ onClose }: { onClose: () => void }) => (
       <div className="flex items-center justify-center gap-4 mb-8">
         <div className="relative">
           <div className="w-24 h-24 rounded-[32px] bg-brand-bg border-2 border-brand-primary p-1 overflow-hidden">
-            <div className="w-full h-full rounded-[28px] bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center">
+            <div className="w-full h-full rounded-[28px] bg-brand-primary flex items-center justify-center">
               <User className="w-10 h-10 text-white" />
             </div>
           </div>
@@ -925,9 +925,9 @@ const MatchOverlay = ({ onClose }: { onClose: () => void }) => (
       </div>
 
       <div className="space-y-3 mb-10">
-        <h2 className="text-4xl font-bold tracking-tighter text-white">Team Found!</h2>
+        <h2 className="text-4xl font-bold tracking-tight text-white">Team Found!</h2>
         <p className="text-brand-text-dim text-sm leading-relaxed">
-          You and <span className="text-white font-bold">Sarah Chen</span> just matched. 
+          You and <span className="text-white font-bold">Aruzhan Bekova</span> just matched. 
           Ready to build something amazing together?
         </p>
       </div>
@@ -952,10 +952,10 @@ const MatchOverlay = ({ onClose }: { onClose: () => void }) => (
 
 const NotificationsView = ({ onMatchDemo }: { onMatchDemo: () => void }) => {
   const NOTIFICATIONS = [
-    { id: 1, type: 'request', user: 'Marcus Volt', content: 'requested to join NeuralSync Mobile', time: '2m ago', active: true },
-    { id: 2, type: 'like', user: 'Sarah Chen', content: 'liked your Terminal Stack project', time: '15m ago' },
+    { id: 1, type: 'request', user: 'Timur Akhmetov', content: 'requested to join StudyBuddy Mobile', time: '2m ago', active: true },
+    { id: 2, type: 'like', user: 'Aruzhan Bekova', content: 'liked your Terminal Stack project', time: '15m ago' },
     { id: 3, type: 'system', user: 'System', content: 'Your verification was approved!', time: '1h ago' },
-    { id: 4, type: 'match', user: 'Sarah Chen', content: 'Match Found! Click to see.', time: 'Just now', isMatch: true },
+    { id: 4, type: 'match', user: 'Aruzhan Bekova', content: 'Match Found! Click to see.', time: 'Just now', isMatch: true },
   ];
 
   return (
@@ -966,7 +966,7 @@ const NotificationsView = ({ onMatchDemo }: { onMatchDemo: () => void }) => {
             <Bell className="w-5 h-5 text-brand-secondary" />
             <MicroLabel>Inbox Status: Active</MicroLabel>
           </div>
-          <h1 className="text-3xl font-bold tracking-tighter text-white">Notifications</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Notifications</h1>
         </div>
       </header>
 
@@ -1021,19 +1021,19 @@ const ChatView = () => {
   const [message, setMessage] = useState('');
 
   const CONTACTS = [
-    { id: 1, name: "Sarah Chen", lastMsg: "Let's sync up on the bento grid...", status: "online", time: "12:45" },
-    { id: 2, name: "Marcus Volt", lastMsg: "The backend is ready for migration.", status: "offline", time: "10:20" },
-    { id: 3, name: "Elena K.", lastMsg: "Check out this Three.js experiment!", status: "online", time: "Yesterday" },
+    { id: 1, name: "Aruzhan Bekova", lastMsg: "Let's sync up on the bento grid...", status: "online", time: "12:45" },
+    { id: 2, name: "Timur Akhmetov", lastMsg: "The backend is ready for migration.", status: "offline", time: "10:20" },
+    { id: 3, name: "Elena Kim", lastMsg: "Check out this Three.js experiment!", status: "online", time: "Yesterday" },
   ];
 
   const MESSAGES = [
-    { id: 1, sender: "Sarah Chen", text: "Hey! I saw your recent projects. Really impressive work on NeuralSync.", time: "12:10 PM", type: "text" },
+    { id: 1, sender: "Aruzhan Bekova", text: "Hey! I saw your recent projects. Really impressive work on StudyBuddy.", time: "12:10 PM", type: "text" },
     { id: 2, sender: "me", text: "Thanks Sarah! It was a tough challenge but we managed to optimize the state flow.", time: "12:12 PM", type: "text" },
     { 
       id: 3, 
-      sender: "Sarah Chen", 
+      sender: "Aruzhan Bekova", 
       type: "invite", 
-      projectName: "Cyber-Eco Dashboard", 
+      projectName: "Eco Shymkent Dashboard", 
       role: "Lead Architect",
       time: "12:15 PM"
     },
@@ -1094,10 +1094,10 @@ const ChatView = () => {
                 S
               </div>
               <div>
-                 <h3 className="text-sm font-bold text-white">Sarah Chen</h3>
+                 <h3 className="text-sm font-bold text-white">Aruzhan Bekova</h3>
                  <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-brand-secondary font-bold">
                     <span className="w-1 h-1 bg-green-500 rounded-full" />
-                    Optimal_Link_Established
+                    Good match
                  </div>
               </div>
            </div>
@@ -1148,7 +1148,7 @@ const ChatView = () => {
                    <div className={`absolute bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity text-[9px] font-mono whitespace-nowrap ${
                      msg.sender === 'me' ? 'right-0 text-brand-primary/80' : 'left-0 text-brand-text-dim'
                    }`}>
-                     {msg.time} • SYNCHRONIZED
+                     {msg.time} • delivered
                    </div>
                  </div>
                )}
@@ -1164,7 +1164,7 @@ const ChatView = () => {
                 type="text" 
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type system message..." 
+                placeholder="Write a message..." 
                 className="flex-1 bg-transparent border-none outline-none text-xs font-mono py-2 text-white placeholder:text-brand-text-dim/50"
               />
               <button className="p-2 text-brand-text-dim hover:text-brand-primary transition-colors cursor-pointer"><Smile className="w-4 h-4" /></button>
@@ -1181,7 +1181,7 @@ const ChatView = () => {
 const MyProjectsView = () => {
   const [showForm, setShowForm] = useState(false);
   const [projects, setProjects] = useState([
-    { id: 1, name: "NeuralSync Mobile", roles: ["Flutter Dev", "Backend", "UI Designer", "QA"], filled: 2, total: 4, desc: "Building the next-gen state management app." },
+    { id: 1, name: "StudyBuddy Mobile", roles: ["Flutter Dev", "Backend", "UI Designer", "QA"], filled: 2, total: 4, desc: "Building the next-gen state management app." },
     { id: 2, name: "Flutter Hub Platform", roles: ["Lead", "Contributor", "DevOps"], filled: 3, total: 3, desc: "Community platform for Flutter architects." }
   ]);
 
@@ -1222,7 +1222,7 @@ const MyProjectsView = () => {
               <Briefcase className="w-5 h-5 text-brand-primary" />
               <MicroLabel>Project Management</MicroLabel>
             </div>
-            <h1 className="text-3xl font-bold tracking-tighter text-white">My <span className="text-brand-primary">Projects</span></h1>
+            <h1 className="text-3xl font-bold tracking-tight text-white">My <span className="text-brand-primary">Projects</span></h1>
           </div>
           <motion.button 
             whileHover={{ scale: 1.05 }}
@@ -1255,7 +1255,7 @@ const MyProjectsView = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                         className="w-full bg-brand-bg border border-brand-border rounded-xl p-4 outline-none focus:border-brand-primary transition-colors text-sm"
-                        placeholder="e.g. NeuralNetwork App"
+                        placeholder="e.g. Campus Food Finder"
                       />
                     </div>
                     <div className="space-y-2">
@@ -1337,7 +1337,7 @@ const MyProjectsView = () => {
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${(project.filled/project.total)*100}%` }}
-                      className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary"
+                      className="h-full bg-brand-primary"
                     />
                   </div>
                 </div>
@@ -1368,18 +1368,18 @@ const HackathonTimeline = () => {
       rank: "1st Place",
       stack: ["Flutter", "Rust", "Firebase"],
       partners: [
-        { name: "Sarah Chen", role: "Designer" },
-        { name: "Marcus Volt", role: "Backend" }
+        { name: "Aruzhan Bekova", role: "Designer" },
+        { name: "Timur Akhmetov", role: "Backend" }
       ]
     },
     {
       id: 2,
-      event: "Neural Hackathon",
+      event: "AI for Good Hackathon",
       date: "Jan 2024",
       rank: "Top 5",
       stack: ["React", "Three.js", "Go"],
       partners: [
-        { name: "Elena K.", role: "Web Dev" }
+        { name: "Elena Kim", role: "Web Dev" }
       ]
     },
     {
@@ -1389,7 +1389,7 @@ const HackathonTimeline = () => {
       rank: "Finalist",
       stack: ["Dart", "C++", "GitHub Actions"],
       partners: [
-        { name: "Dave Matrix", role: "DevOps" }
+        { name: "Dias Nurlanov", role: "DevOps" }
       ]
     }
   ];
@@ -1408,7 +1408,7 @@ const HackathonTimeline = () => {
           className="relative pl-16 group"
         >
           {/* Dot */}
-          <div className="absolute left-[16px] top-4 w-4 h-4 rounded-full bg-brand-bg border-2 border-brand-primary z-10 shadow-[0_0_10px_#6366F1] group-hover:scale-125 transition-transform" />
+          <div className="absolute left-[16px] top-4 w-4 h-4 rounded-full bg-brand-bg border-2 border-brand-primary z-10 group-hover:scale-125 transition-transform" />
           
           <div className="bg-brand-surface border border-brand-border rounded-[32px] p-6 space-y-4 hover:border-brand-primary/30 transition-all shadow-xl shadow-black/30">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -1441,7 +1441,7 @@ const HackathonTimeline = () => {
                       title={`${p.name} (${p.role})`}
                     >
                       <div className="w-10 h-10 rounded-full bg-brand-surface border-2 border-brand-bg overflow-hidden flex items-center justify-center hover:z-20 hover:scale-110 transition-all cursor-pointer shadow-lg shadow-black/40">
-                         <div className="w-full h-full bg-gradient-to-br from-brand-primary/40 to-brand-secondary/40 flex items-center justify-center text-xs font-bold font-mono">
+                         <div className="w-full h-full bg-brand-primary/40 flex items-center justify-center text-xs font-bold font-mono">
                            {p.name[0]}
                          </div>
                       </div>
@@ -1496,7 +1496,7 @@ const SkillRadarChart = () => {
       <div className="absolute top-0 right-0 w-48 h-48 bg-brand-secondary/5 blur-[60px] -mr-24 -mt-24" />
       
       <div className="relative group shrink-0">
-        <svg width={size} height={size} className="drop-shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+        <svg width={size} height={size} className="">
           {/* Grid Circles/Polygons */}
           {[1.0, 0.75, 0.5, 0.25].map(tick => {
             const gridPoints = SKILLS.map((_, i) => {
@@ -1575,7 +1575,7 @@ const SkillRadarChart = () => {
             <MicroLabel>Skill Distribution Analysis</MicroLabel>
           </div>
           <h3 className="text-2xl font-bold">Technological Balance</h3>
-          <p className="text-sm text-brand-text-dim">Interactive neural map of competencies. Click categories to explore the stack details deep dive.</p>
+          <p className="text-sm text-brand-text-dim">Skills by area. Click a category to see details.</p>
         </div>
 
         <div className="h-[120px]">
@@ -1589,8 +1589,8 @@ const SkillRadarChart = () => {
                 className="space-y-4"
               >
                 <div className="flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-brand-primary shadow-[0_0_8px_#6366F1]" />
-                   <h4 className="text-lg font-bold text-white uppercase tracking-tighter">{selectedCategory} STACK</h4>
+                   <div className="w-2 h-2 rounded-full bg-brand-primary" />
+                   <h4 className="text-lg font-bold text-white uppercase tracking-tight">{selectedCategory} STACK</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {SKILLS.find(s => s.label === selectedCategory)?.sub.map(item => (
@@ -1635,7 +1635,7 @@ const ProfileView = () => {
         style={{ height: `${headerHeight}px` }}
       >
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-brand-primary/20 via-brand-bg to-brand-secondary/10"
+          className="absolute inset-0 bg-brand-primary/20"
           style={{ opacity }}
         />
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=2532&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30" />
@@ -1647,14 +1647,14 @@ const ProfileView = () => {
           >
             <div className="flex items-center gap-6">
               <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-[32px] bg-brand-surface border-4 border-brand-bg shadow-2xl relative">
-                <div className="w-full h-full rounded-[28px] bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center">
+                <div className="w-full h-full rounded-[28px] bg-brand-primary flex items-center justify-center">
                   <User className="w-12 h-12 text-white" />
                 </div>
                 <div className="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-brand-bg" />
               </div>
               <div className="mb-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-3xl font-bold text-white tracking-tighter">Alex Rivera</h1>
+                  <h1 className="text-3xl font-bold text-white tracking-tight">Daniyar Sadykov</h1>
                   <CheckCircle2 className="w-5 h-5 text-brand-secondary" />
                   <VideoPitch />
                 </div>
@@ -1696,7 +1696,7 @@ const ProfileView = () => {
                 <p className="text-brand-text-dim text-sm leading-relaxed">Certified Google Developer Expert with 120+ published packages in the Flutter ecosystem.</p>
               </div>
               <div className="flex items-center gap-2 text-brand-secondary font-mono text-xs font-bold uppercase tracking-widest">
-                verified_credential_0x442
+                Verified
               </div>
             </div>
             
@@ -1704,13 +1704,13 @@ const ProfileView = () => {
                <div className="w-10 h-10 rounded-full bg-brand-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                  <Shield className="w-5 h-5 text-brand-secondary" />
                </div>
-               <div className="text-2xl font-bold tracking-tighter">840</div>
+               <div className="text-2xl font-bold tracking-tight">840</div>
                <MicroLabel>PRs Merged</MicroLabel>
             </div>
 
             <div className="bg-brand-secondary/10 border border-brand-secondary/20 rounded-[24px] p-6 flex flex-col justify-center items-center text-center gap-2">
                <Activity className="w-6 h-6 text-brand-secondary animate-pulse" />
-               <div className="text-2xl font-bold tracking-tighter">Top 1%</div>
+               <div className="text-2xl font-bold tracking-tight">Top 1%</div>
                <MicroLabel>Ranked Global</MicroLabel>
             </div>
 
@@ -1748,7 +1748,7 @@ const ProfileView = () => {
                 </div>
                 <div className="p-6 space-y-4">
                   <div className="space-y-1">
-                    <h4 className="text-lg font-bold group-hover:text-brand-primary transition-colors">NeuralSync Engine v{i}.0</h4>
+                    <h4 className="text-lg font-bold group-hover:text-brand-primary transition-colors">Open-source package #{i}</h4>
                     <p className="text-xs text-brand-secondary font-mono uppercase tracking-widest font-bold">Lead Developer • Mobile</p>
                   </div>
                   <p className="text-xs text-brand-text-dim leading-relaxed">
@@ -1768,7 +1768,7 @@ const ProfileView = () => {
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <Target className="w-5 h-5 text-brand-primary" />
-            <h2 className="text-xl font-bold">Neural Competencies</h2>
+            <h2 className="text-xl font-bold">Skills</h2>
           </div>
           <SkillRadarChart />
         </section>
@@ -1838,7 +1838,7 @@ export default function App() {
     // Simulate API fetch delay
     setTimeout(() => {
       setIsRefreshing(false);
-      showToast("Data Feed Synchronized", "success");
+      showToast("Feed updated", "success");
     }, 1500);
   };
 
@@ -1849,7 +1849,7 @@ export default function App() {
         <div className="space-y-8">
           <div>
             <div className="flex items-center gap-2 mb-8">
-              <div className="w-3 h-3 rounded-full bg-brand-primary shadow-[0_0_8px_#6366F1]"></div>
+              <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
               <MicroLabel>FLUTTER HUB</MicroLabel>
             </div>
             <nav className="space-y-2">
@@ -1962,7 +1962,7 @@ export default function App() {
           </div>
           <div className="pt-8 border-t border-brand-border">
             <p className="text-[10px] font-mono opacity-30 leading-relaxed uppercase tracking-wider">
-              Project Context<br/>v2.4.0 stable
+              Hack Searcher<br/>student prototype
             </p>
           </div>
         </div>
@@ -1970,7 +1970,7 @@ export default function App() {
           <div className="text-[11px] font-mono text-brand-secondary mb-1 uppercase tracking-widest">Server</div>
           <div className="text-xs font-medium text-white/80 tracking-tight flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-            Node-Main Cluster
+            Online
           </div>
         </div>
       </aside>
@@ -1993,10 +1993,10 @@ export default function App() {
                   isPanicMode ? 'bg-red-500/10 border-red-500/20 text-red-500' : 'bg-brand-surface border-brand-border text-brand-primary'
                 }`}>
                   <Search className="w-3 h-3" />
-                  <span>SEARCH_NETWORK...</span>
+                  <span>Search people</span>
                 </div>
-                <h1 className="text-lg font-bold tracking-tighter text-white/90 font-sans uppercase">
-                  {isPanicMode ? 'CRITICAL_FEED' : 'Hub'}
+                <h1 className="text-lg font-bold tracking-tight text-white/90 font-sans uppercase">
+                  {isPanicMode ? 'Urgent' : 'Hub'}
                 </h1>
               </div>
               <div className="flex items-center gap-6">
@@ -2007,18 +2007,13 @@ export default function App() {
                      className="hidden md:flex items-center gap-2 text-red-500 font-mono text-[10px] font-bold"
                    >
                      <div className="w-2 h-2 bg-red-500 rounded-full" />
-                     SYSTEM_PANIC_ENGAGED
+                     Urgent mode on
                    </motion.div>
                  ) : (
                    <div className="flex items-center gap-4">
                       <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-brand-primary/10 rounded-full border border-brand-primary/20">
                          <div className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse" />
-                         <span className="text-[10px] font-mono font-bold text-brand-primary tracking-widest">STABLE</span>
-                      </div>
-                      <div className="hidden sm:flex gap-2">
-                        <div className="h-2.5 w-2.5 rounded-full bg-[#FF5F56]"></div>
-                        <div className="h-2.5 w-2.5 rounded-full bg-[#FFBD2E]"></div>
-                        <div className="h-2.5 w-2.5 rounded-full bg-[#27C93F]"></div>
+                         <span className="text-[10px] font-mono font-bold text-brand-primary tracking-wide">Online</span>
                       </div>
                    </div>
                  )}
@@ -2044,7 +2039,7 @@ export default function App() {
                         key={f.id}
                         onClick={() => {
                           setActiveFilter(f.id);
-                          showToast(`Filter Sync: ${f.label}`);
+                          showToast(`Filter: ${f.label}`);
                         }}
                         className={`whitespace-nowrap px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border cursor-pointer ${
                           activeFilter === f.id 
@@ -2081,17 +2076,17 @@ export default function App() {
                                   <User className="w-10 h-10 text-white" />
                                 </div>
                                 <div className="absolute -bottom-2 -right-2 bg-brand-bg p-1.5 rounded-xl border border-red-500/50">
-                                  <AlertTriangle className="w-4 h-4 text-red-500 animate-bounce" />
+                                  <AlertTriangle className="w-4 h-4 text-red-500" />
                                 </div>
                               </div>
                               <div className="flex-1 space-y-4">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <div className="flex items-center gap-2 mb-1">
-                                      <h3 className="text-xl font-bold text-white tracking-tighter uppercase">Alex Rivera</h3>
+                                      <h3 className="text-xl font-bold text-white tracking-tight uppercase">Daniyar Sadykov</h3>
                                       <span className="px-2 py-0.5 bg-red-500 text-white text-[8px] font-bold rounded uppercase">Critical</span>
                                     </div>
-                                    <p className="text-xs font-mono font-bold text-red-400 tracking-[0.2em] uppercase">Neural Architect / Web3</p>
+                                    <p className="text-xs font-mono font-bold text-red-400 tracking-[0.2em] uppercase">Web3 developer</p>
                                   </div>
                                   <div className="text-right">
                                      <div className="text-[10px] font-mono text-red-500 font-bold uppercase mb-1">SOS Active</div>
@@ -2113,9 +2108,9 @@ export default function App() {
 
                       <div className="flex items-center justify-between mb-2">
                         <div>
-                          <h2 className="text-xl font-bold text-white tracking-tight">{isPanicMode ? 'NEURAL LOGS' : 'Active Contributors'}</h2>
+                          <h2 className="text-xl font-bold text-white tracking-tight">{isPanicMode ? 'Urgent requests' : 'Active Contributors'}</h2>
                           <p className="text-xs text-brand-text-dim font-mono">
-                            {isPanicMode ? 'FILTERING_BY_URGENCY_LEVEL_HIGH' : 'Found 128 results in current cluster'}
+                            {isPanicMode ? 'Sorted by urgency' : '10 people looking for a team'}
                           </p>
                         </div>
                       </div>
@@ -2136,7 +2131,7 @@ export default function App() {
                             <FuturisticCard delay={idx * 0.05}>
                               <div className="flex flex-col sm:flex-row gap-6">
                                 <div className="shrink-0 relative">
-                                  <div className="w-16 h-16 rounded-[20px] bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 flex items-center justify-center border border-brand-primary/10">
+                                  <div className="w-16 h-16 rounded-[20px] bg-brand-primary/20 flex items-center justify-center border border-brand-primary/10">
                                     <User className="w-7 h-7 text-brand-primary" />
                                   </div>
                                   <div className="absolute -bottom-1 -right-1 bg-brand-surface p-1 rounded-lg border border-brand-border">
