@@ -2,6 +2,8 @@
 
 **Find a hackathon, find a team, agree on who does what.**
 
+### ▶ [Live demo](https://arna0.github.io/hack-searcher/): opens in the browser, nothing to install
+
 Students who want to join hackathons hit the same three problems: they don't know which events are open, they can't find teammates with the right skills, and teams fall apart because roles were never agreed. Hack Searcher puts all three in one app.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
