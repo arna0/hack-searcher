@@ -36,7 +36,7 @@ Express + SQLite (built into Node 22.13+). Passwords are hashed with scrypt; sig
 
 A fresh database gets sample people, hackathons and a team (sample password `demo1234`). CI signs up two users, creates a team, invites, accepts and sends a message on every push.
 
-The GitHub Pages demo has no server, so it shows sample data and the Teams page explains how to run it. With the server, the People page loads real profiles, **Teams** has sign-in, team creation and invites, and **Invite to team** sends a real invite.
+The **GitHub Pages demo works without a server**: the same API runs inside the browser (`src/demo/browserServer.ts`) and saves to that browser's storage. Visitors can sign up, create teams, invite and accept. To try both sides of an invite, sign in as a sample person (password `demo1234`), invite someone, sign out and sign in as them. Each visitor has their own copy of the data; "Reset demo data" on the sign-in page starts over. Run the real server (below) to share accounts between people.
 
 ## Run it
 

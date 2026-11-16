@@ -49,3 +49,18 @@ jobs:
           name: ui-screenshot
           path: ui-test.png
           if-no-files-found: ignore
+      - name: Browser test of the GitHub Pages demo (API in the browser)
+        env:
+          VITE_STATIC_DEMO: 'true'
+          DEMO_URL: http://localhost:4173
+        run: |
+          npx vite build --base=/ --outDir dist-demo
+          npx vite preview --outDir dist-demo --port 4173 --strictPort > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:4173 > /dev/null && break; sleep 1; done
+          node tests/demo.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: demo-screenshot
+          path: demo-test.png
+          if-no-files-found: ignore

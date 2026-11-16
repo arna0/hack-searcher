@@ -8,12 +8,55 @@ import {
   fetchInvites,
   fetchTeams,
   signIn,
+  signOut,
   signUp,
   type ApiPerson,
   type Hackathon,
   type Invite,
   type Team,
 } from './api';
+import { DEMO_PASSWORD, resetDemo } from './demo/browserServer';
+
+const IS_BROWSER_DEMO = import.meta.env.VITE_STATIC_DEMO === 'true';
+
+/** On GitHub Pages: explain where data lives and offer the sample accounts. */
+function DemoNote({ onPick }: { onPick: (email: string) => void }) {
+  const samples = [
+    ['Arnur', 'arnur@example.com', 'owns the team City Pulse'],
+    ['Daniyar Sadykov', 'daniyar@example.com', 'Flutter developer'],
+    ['Aruzhan Bekova', 'aruzhan@example.com', 'designer'],
+  ];
+  return (
+    <div className="max-w-sm mt-10 rounded-2xl border border-brand-border bg-brand-surface p-5 text-sm text-stone-300 leading-relaxed">
+      <p className="text-white font-medium">Trying the demo?</p>
+      <p className="mt-1">
+        Everything you create is saved in this browser only. To see both sides of an invite, sign in as one sample person, invite
+        someone, then sign out and sign in as them. Sample password: <code className="text-brand-secondary">{DEMO_PASSWORD}</code>
+      </p>
+      <ul className="mt-3 space-y-1.5">
+        {samples.map(([name, email, note]) => (
+          <li key={email}>
+            <button type="button" onClick={() => onPick(email)} className="text-brand-primary hover:underline cursor-pointer">
+              {name}
+            </button>{' '}
+            <span className="text-brand-text-dim">· {note}</span>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        onClick={async () => {
+          await resetDemo();
+          signOut();
+          location.reload();
+        }}
+        className="mt-4 text-xs text-brand-text-dim hover:text-white underline cursor-pointer"
+      >
+        Reset demo data
+      </button>
+    </div>
+  );
+}
 
 const input =
   'w-full px-3 py-2.5 rounded-lg bg-brand-bg border border-brand-border text-sm text-white placeholder:text-brand-text-dim outline-none focus:border-brand-primary/60 transition-colors';
@@ -103,6 +146,7 @@ export function SignInView({ onSignedIn }: { onSignedIn: (user: ApiPerson) => vo
           </button>
         </p>
       </form>
+      {IS_BROWSER_DEMO && <DemoNote onPick={(email) => { setMode('in'); setForm({ ...form, email, password: DEMO_PASSWORD }); }} />}
     </Page>
   );
 }
