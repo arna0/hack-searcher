@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { apiOnline, fetchPeople } from "./api";
+import { apiOnline, fetchMe, fetchPeople, fetchTeams, hasSession, invitePerson, signOut, type ApiPerson } from "./api";
+import { NeedsServer, SignInView, TeamsView } from "./AccountViews";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Mic,
@@ -497,6 +498,7 @@ const MOCK_USERS = [
 const NAV_ITEMS: { id: string; label: string; icon: React.ElementType }[] = [
   { id: 'feed', label: 'People', icon: Layers },
   { id: 'ai-match', label: 'Find teammates', icon: Sparkles },
+  { id: 'teams', label: 'Teams', icon: Users },
   { id: 'events', label: 'Hackathons', icon: Trophy },
   { id: 'my-projects', label: 'My projects', icon: Briefcase },
   { id: 'team-agreement', label: 'Team agreement', icon: ClipboardCheck },
@@ -1872,14 +1874,32 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [people, setPeople] = useState(MOCK_USERS);
-  // Real people from the server when one is running; sample people on GitHub Pages.
+  const [online, setOnline] = useState(false);
+  const [me, setMe] = useState<ApiPerson | null>(null);
+  // Real data from the server when one is running; sample people on GitHub Pages.
   useEffect(() => {
-    apiOnline().then(async (online) => {
-      if (!online) return;
+    apiOnline().then(async (ok) => {
+      if (!ok) return;
+      setOnline(true);
       const list = await fetchPeople();
       if (list.length) setPeople(list.map((p) => ({ ...p, status: "online" })));
+      if (hasSession()) setMe(await fetchMe().catch(() => null));
     }).catch(() => {});
   }, []);
+
+  const handleInvite = async (person: { id: number; name: string }) => {
+    if (!online) return showToast(`Demo mode: no server, so the invite to ${person.name} was not sent`, "info");
+    if (!me) { setActiveTab("teams"); return showToast("Sign in to invite people", "info"); }
+    if (person.id === me.id) return showToast("That's you", "info");
+    try {
+      const mine = (await fetchTeams()).filter((t) => t.owner_id === me.id);
+      if (!mine.length) { setActiveTab("teams"); return showToast("Create a team first, then invite people to it", "info"); }
+      await invitePerson(mine[0].id, person.id);
+      showToast(`Invited ${person.name} to ${mine[0].name}`, "success");
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : "Invite failed", "error");
+    }
+  };
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = Date.now();
@@ -1947,11 +1967,11 @@ export default function App() {
             {isPanicMode && <span className="ml-auto text-[11px]">on</span>}
           </button>
         </div>
-        <button onClick={() => setActiveTab('profile')} className="flex items-center gap-3 p-2 rounded-xl hover:bg-brand-surface transition-colors cursor-pointer text-left">
-          <span className="w-9 h-9 rounded-full bg-brand-secondary/20 text-brand-secondary grid place-items-center text-sm font-semibold">A</span>
+        <button onClick={() => setActiveTab(online ? "teams" : "profile")} className="flex items-center gap-3 p-2 rounded-xl hover:bg-brand-surface transition-colors cursor-pointer text-left">
+          <span className="w-9 h-9 rounded-full bg-brand-secondary/20 text-brand-secondary grid place-items-center text-sm font-semibold">{(me?.name ?? "Arnur").slice(0, 1)}</span>
           <span className="leading-tight">
-            <span className="block text-sm font-medium text-white">Arnur</span>
-            <span className="block text-xs text-brand-text-dim">Looking for a team</span>
+            <span className="block text-sm font-medium text-white">{me ? me.name : online ? "Sign in" : "Arnur"}</span>
+            <span className="block text-xs text-brand-text-dim">{me ? me.role || "Looking for a team" : online ? "to join or create a team" : "Looking for a team"}</span>
           </span>
         </button>
       </aside>
@@ -2026,7 +2046,7 @@ export default function App() {
                         user={user}
                         index={idx}
                         onOpen={() => setActiveTab('profile')}
-                        onInvite={() => showToast(`Invite sent to ${user.name}`, 'success')}
+                        onInvite={() => handleInvite(user)}
                       />
                     ))}
                   </div>
@@ -2045,6 +2065,14 @@ export default function App() {
         {activeTab === 'notifications' && <NotificationsView onMatchDemo={() => setShowMatch(true)} />}
         {activeTab === 'ai-match' && <AIMatchmakingView />}
         {activeTab === 'team-agreement' && <TeamAgreementBuilder />}
+        {activeTab === 'teams' &&
+          (!online ? (
+            <NeedsServer what="Teams" />
+          ) : me ? (
+            <TeamsView me={me} notify={showToast} onSignOut={() => { signOut(); setMe(null); showToast("Signed out", "info"); }} />
+          ) : (
+            <SignInView onSignedIn={(u) => { setMe(u); showToast(`Welcome, ${u.name}`, "success"); }} />
+          ))}
       </main>
 
       <AnimatePresence>
@@ -2067,7 +2095,7 @@ export default function App() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-brand-bg/80 backdrop-blur-xl border-t border-brand-border px-6 flex items-center justify-between z-[50]">
         {[
           { id: 'feed', icon: <Layers className="w-5 h-5" /> },
-          { id: 'ai-match', icon: <Sparkles className="w-5 h-5" /> },
+          { id: 'teams', icon: <Users className="w-5 h-5" /> },
           { id: 'events', icon: <Trophy className="w-5 h-5" /> },
           { id: 'chat', icon: <MessageSquare className="w-5 h-5" /> },
           { id: 'profile', icon: <User className="w-5 h-5" /> },

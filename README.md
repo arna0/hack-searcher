@@ -36,7 +36,7 @@ Express + SQLite (built into Node 22.13+). Passwords are hashed with scrypt; sig
 
 A fresh database gets sample people, hackathons and a team (sample password `demo1234`). CI signs up two users, creates a team, invites, accepts and sends a message on every push.
 
-The GitHub Pages demo has no server, so it shows sample data. When the app runs with the server, the People page loads real profiles.
+The GitHub Pages demo has no server, so it shows sample data and the Teams page explains how to run it. With the server, the People page loads real profiles, **Teams** has sign-in, team creation and invites, and **Invite to team** sends a real invite.
 
 ## Run it
 
@@ -56,7 +56,7 @@ npm run build && npm start      # app + API on http://localhost:8080
 
 ## Status
 
-Working backend with accounts, teams, invites and messages. Next steps: sign-in screens in the web app, importing real hackathon listings, and matching by skills.
+Working backend and web app: sign up, sign in, create a team, ask to join, invite people from the People page, accept or decline. Next steps: a messages screen on top of the existing API, importing real hackathon listings, and matching by skills.
 
 ## Author
 
