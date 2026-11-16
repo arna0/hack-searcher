@@ -31,3 +31,21 @@ jobs:
           N=$(curl -sf localhost:8080/api/conversations -H "Authorization: Bearer $BT" | j '[0].unread'); test "$N" = 1
           test "$(curl -sf localhost:8080/api/people | j .length)" -ge 8
           echo "all API checks passed"; cat /tmp/server.log
+      - name: Browser test (sign up, create team, invite)
+        env:
+          DB_FILE: /tmp/ui.db
+          AUTH_SECRET: ci-secret
+          PORT: "8090"
+          APP_URL: http://localhost:8090
+        run: |
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+          npm start > /tmp/ui-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:8090/api/health > /dev/null && break; sleep 1; done
+          node tests/ui.mjs || { cat /tmp/ui-server.log; exit 1; }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-screenshot
+          path: ui-test.png
+          if-no-files-found: ignore
