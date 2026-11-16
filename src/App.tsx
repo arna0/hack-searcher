@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { apiOnline, fetchMe, fetchPeople, fetchTeams, hasSession, invitePerson, signOut, type ApiPerson } from "./api";
 import { NeedsServer, SignInView, TeamsView } from "./AccountViews";
+import { Hero } from "./Hero";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Mic,
@@ -1991,7 +1992,7 @@ export default function App() {
                     <Menu className="w-5 h-5" />
                   </button>
                   <div>
-                    <h1 className="text-3xl sm:text-4xl tracking-tight text-white leading-tight">{isPanicMode ? <><span className="font-light">Urgent </span><span className="font-bold">requests</span></> : <><span className="font-light">Find your </span><span className="font-bold">hackathon team</span></>}</h1>
+                    <h1 className="text-2xl tracking-tight text-white"><span className="font-light">{isPanicMode ? "Urgent" : "People"}</span> <span className="font-bold">{isPanicMode ? "requests" : "looking for a team"}</span></h1>
                     <p className="text-sm text-brand-text-dim mt-0.5">
                       {isPanicMode ? 'Teams that need someone today.' : `${visibleUsers.length} ${visibleUsers.length === 1 ? 'student' : 'students'} looking for a hackathon team`}
                     </p>
@@ -2033,6 +2034,13 @@ export default function App() {
 
             <div className={`flex-1 overflow-y-auto scroll-smooth no-scrollbar ${isPanicMode ? 'bg-red-500/[0.03]' : ''}`}>
               <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 pb-28">
+                {!isPanicMode && !query && activeFilter === "all" && (
+                  <Hero
+                    people={visibleUsers}
+                    onFind={() => document.getElementById("people-grid")?.scrollIntoView({ behavior: "smooth" })}
+                    onJoin={() => setActiveTab("teams")}
+                  />
+                )}
                 {isPanicMode && <div className="mb-8"><SOSWidget /></div>}
 
                 {isLoading ? (
@@ -2040,7 +2048,7 @@ export default function App() {
                     {[1, 2, 3, 4, 5, 6].map((i) => <UserSkeleton key={i} />)}
                   </div>
                 ) : visibleUsers.length > 0 ? (
-                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  <div id="people-grid" className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 scroll-mt-6">
                     {visibleUsers.map((user, idx) => (
                       <PersonCard
                         key={user.id}
