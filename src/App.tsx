@@ -1916,6 +1916,7 @@ export default function App() {
   }, []);
 
   const visibleUsers = people.filter((user) => {
+    if (me && user.id === me.id) return false;
     const q = query.trim().toLowerCase();
     if (q && ![user.name, user.role, user.stack].join(' ').toLowerCase().includes(q)) return false;
     if (activeFilter === 'all') return true;

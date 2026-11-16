@@ -22,7 +22,7 @@ await page.getByRole('button', { name: 'Create team' }).click();
 await page.getByText('Your team').waitFor({ timeout: 10000 }).catch(() => fail('team was not created'));
 
 await page.getByRole('button', { name: 'People' }).first().click();
-await page.getByRole('button', { name: 'Invite to team' }).first().click();
+await page.locator('article', { hasText: 'Daniyar Sadykov' }).getByRole('button', { name: 'Invite to team' }).click();
 await page.getByText(/Invited .* to UI Test Team/).waitFor({ timeout: 10000 }).catch(() => fail('invite from People did not go through'));
 
 await page.screenshot({ path: 'ui-test.png', fullPage: true });
