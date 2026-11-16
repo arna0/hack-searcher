@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { apiOnline, fetchPeople } from "./api";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Mic,
@@ -1870,6 +1871,15 @@ export default function App() {
   const [toasts, setToasts] = useState<{ id: number, message: string, type: 'success' | 'error' | 'info' }[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [people, setPeople] = useState(MOCK_USERS);
+  // Real people from the server when one is running; sample people on GitHub Pages.
+  useEffect(() => {
+    apiOnline().then(async (online) => {
+      if (!online) return;
+      const list = await fetchPeople();
+      if (list.length) setPeople(list.map((p) => ({ ...p, status: "online" })));
+    }).catch(() => {});
+  }, []);
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = Date.now();
@@ -1885,7 +1895,7 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const visibleUsers = MOCK_USERS.filter((user) => {
+  const visibleUsers = people.filter((user) => {
     const q = query.trim().toLowerCase();
     if (q && ![user.name, user.role, user.stack].join(' ').toLowerCase().includes(q)) return false;
     if (activeFilter === 'all') return true;

@@ -1,0 +1,33 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - name: Sign up, create a team, invite, accept, message
+        env:
+          DB_FILE: /tmp/ci.db
+          AUTH_SECRET: ci-secret
+        run: |
+          set -e
+          npm start > /tmp/server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:8080/api/health && break; sleep 1; done
+          j() { node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s)$1))"; }
+          A=$(curl -sf -X POST localhost:8080/api/auth/register -H 'Content-Type: application/json' -d '{"name":"Test Owner","email":"owner@test.kz","password":"password123","role":"Backend"}' | j .token)
+          B=$(curl -sf -X POST localhost:8080/api/auth/register -H 'Content-Type: application/json' -d '{"name":"Test Designer","email":"designer@test.kz","password":"password123","role":"Designer"}')
+          BT=$(echo "$B" | j .token); BID=$(echo "$B" | j .user.id)
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST localhost:8080/api/auth/login -H 'Content-Type: application/json' -d '{"email":"owner@test.kz","password":"wrong"}')" = 401
+          TEAM=$(curl -sf -X POST localhost:8080/api/teams -H "Authorization: Bearer $A" -H 'Content-Type: application/json' -d '{"name":"CI Team","openRoles":["Designer"]}' | j .id)
+          INV=$(curl -sf -X POST localhost:8080/api/teams/$TEAM/invite -H "Authorization: Bearer $A" -H 'Content-Type: application/json' -d "{\"userId\":$BID}" | j .id)
+          curl -sf -X POST localhost:8080/api/invites/$INV/accept -H "Authorization: Bearer $BT" > /dev/null
+          SIZE=$(curl -sf localhost:8080/api/teams/$TEAM | j .size); test "$SIZE" = 2
+          curl -sf -X POST localhost:8080/api/messages -H "Authorization: Bearer $A" -H 'Content-Type: application/json' -d "{\"toUserId\":$BID,\"text\":\"Welcome!\"}" > /dev/null
+          N=$(curl -sf localhost:8080/api/conversations -H "Authorization: Bearer $BT" | j '[0].unread'); test "$N" = 1
+          test "$(curl -sf localhost:8080/api/people | j .length)" -ge 8
+          echo "all API checks passed"; cat /tmp/server.log

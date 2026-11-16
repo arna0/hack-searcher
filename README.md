@@ -20,11 +20,38 @@ Students who want to join hackathons hit the same three problems: they don't kno
 - 🔔 **Notifications and chat** between team members
 - 🎨 **One design system for web and mobile**: a futuristic dark theme (indigo and cyan) exported as a Flutter `ThemeData` in [`src/theme.dart`](src/theme.dart), so the mobile app looks the same as the web prototype
 
+## Backend
+
+Express + SQLite (built into Node 22.13+). Passwords are hashed with scrypt; sign-in uses signed tokens.
+
+| Endpoint | What it does |
+|---|---|
+| `POST /api/auth/register` · `POST /api/auth/login` · `GET/PATCH /api/me` | Accounts and your profile |
+| `GET /api/people?q=&role=` · `GET /api/people/:id` | People looking for a team |
+| `GET/POST /api/hackathons` | Hackathon list; anyone signed in can add one |
+| `GET/POST /api/teams` · `GET /api/teams/:id` | Teams with members and open roles |
+| `POST /api/teams/:id/invite` · `POST /api/teams/:id/join` | Owner invites a person, or a person asks to join |
+| `GET /api/invites` · `POST /api/invites/:id/accept|decline` | Answer invites and requests; accepting adds the person to the team |
+| `GET /api/conversations` · `GET /api/messages/:userId` · `POST /api/messages` | Direct messages with unread counts |
+
+A fresh database gets sample people, hackathons and a team (sample password `demo1234`). CI signs up two users, creates a team, invites, accepts and sends a message on every push.
+
+The GitHub Pages demo has no server, so it shows sample data. When the app runs with the server, the People page loads real profiles.
+
 ## Run it
+
+With Docker:
+
+```bash
+docker build -t hack-searcher .
+docker run -p 8080:8080 -e AUTH_SECRET=change-me -v hs-data:/data hack-searcher   # http://localhost:8080
+```
+
+Or with Node.js 22.13+:
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run build && npm start      # app + API on http://localhost:8080
 ```
 
 ## Status
