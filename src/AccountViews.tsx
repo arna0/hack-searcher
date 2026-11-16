@@ -61,7 +61,7 @@ function DemoNote({ onPick }: { onPick: (email: string) => void }) {
 const input =
   'w-full px-3 py-2.5 rounded-lg bg-brand-bg border border-brand-border text-sm text-white placeholder:text-brand-text-dim outline-none focus:border-brand-primary/60 transition-colors';
 const primary =
-  'px-6 py-3 rounded-full bg-brand-primary text-[#1a1a14] text-[12px] font-semibold uppercase tracking-[0.08em] shadow-[0_6px_24px_-8px_rgba(223,232,160,0.55)] hover:brightness-105 transition disabled:opacity-50 cursor-pointer';
+  'px-6 py-3 rounded-full bg-brand-primary text-[#1a1a14] text-[12px] font-semibold uppercase tracking-[0.08em] shadow-[0_6px_24px_-8px_rgba(255,122,69,0.55)] hover:brightness-105 transition disabled:opacity-50 cursor-pointer';
 const secondary = 'px-5 py-2.5 rounded-full border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer';
 
 function Page({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {

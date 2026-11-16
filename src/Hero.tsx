@@ -25,7 +25,7 @@ export function Hero({ people, onFind, onJoin }: { people: Person[]; onFind: () 
           <div className="flex flex-wrap items-center gap-6 mt-9">
             <button
               onClick={onFind}
-              className="px-9 py-4 rounded-full bg-brand-primary text-[#1a1a14] text-[12px] font-bold uppercase tracking-[0.1em] shadow-[0_10px_30px_-10px_rgba(223,232,160,0.6)] hover:brightness-105 transition cursor-pointer"
+              className="px-9 py-4 rounded-full bg-brand-primary text-[#1a1a14] text-[12px] font-bold uppercase tracking-[0.1em] shadow-[0_10px_30px_-10px_rgba(255,122,69,0.6)] hover:brightness-105 transition cursor-pointer"
             >
               Find teammates
             </button>
@@ -39,7 +39,7 @@ export function Hero({ people, onFind, onJoin }: { people: Person[]; onFind: () 
           {cards.map((p, i) => (
             <div
               key={p.id}
-              className="absolute w-[300px] rounded-2xl border border-brand-border bg-[#262626] p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]"
+              className="absolute w-[300px] rounded-2xl border border-brand-border bg-[#221c17] p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]"
               style={{ top: `${i * 92}px`, left: `${[18, 0, 30][i]}%`, transform: `rotate(${[-3, 2, -1][i]}deg)`, zIndex: 3 - i }}
             >
               <div className="flex items-center gap-3">

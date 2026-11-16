@@ -5,12 +5,12 @@
   --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Charcoal + soft lime */
-  --color-brand-bg: #1d1d1d;
-  --color-brand-surface: #252525;
-  --color-brand-border: #333333;
-  --color-brand-primary: #dfe8a0;
-  --color-brand-secondary: #cfd3c4;
+  /* Warm black + coral */
+  --color-brand-bg: #16120f;
+  --color-brand-surface: #211b17;
+  --color-brand-border: #33291f;
+  --color-brand-primary: #ff7a45;
+  --color-brand-secondary: #ffc7a8;
   --color-brand-text-dim: rgba(242, 242, 240, 0.55);
 }
 
@@ -20,12 +20,13 @@
   }
 }
 
-/* Thin vertical column lines over the page, like the reference layout */
+/* Signature: a faint dot grid */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 60;
-  background-image: repeating-linear-gradient(to right, transparent 0 calc(20% - 1px), rgba(255, 255, 255, 0.035) calc(20% - 1px) 20%);
+  background-image: radial-gradient(rgba(255, 200, 170, 0.07) 1px, transparent 1.5px);
+  background-size: 28px 28px;
 }

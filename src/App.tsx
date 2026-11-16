@@ -508,7 +508,7 @@ const NAV_ITEMS: { id: string; label: string; icon: React.ElementType }[] = [
   { id: 'profile', label: 'My profile', icon: User },
 ];
 
-const AVATAR_TONES = ['bg-[#dfe8a0]/15 text-[#dfe8a0]', 'bg-white/[0.06] text-stone-200', 'bg-white/[0.06] text-stone-300', 'bg-white/[0.08] text-stone-100'];
+const AVATAR_TONES = ['bg-[#ff7a45]/15 text-[#ff7a45]', 'bg-white/[0.06] text-stone-200', 'bg-white/[0.06] text-stone-300', 'bg-white/[0.08] text-stone-100'];
 const initials = (name: string) => name.split(' ').map((p) => p[0]).slice(0, 2).join('');
 
 const PersonCard = ({ user, index, onOpen, onInvite }: { user: typeof MOCK_USERS[number]; index: number; onOpen: () => void; onInvite: () => void }) => (
