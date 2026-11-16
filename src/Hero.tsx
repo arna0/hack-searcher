@@ -35,7 +35,7 @@ export function Hero({ people, onFind, onJoin }: { people: Person[]; onFind: () 
           </div>
         </div>
 
-        <div className="relative h-[340px] sm:h-[420px] hidden md:block">
+        <div className="relative h-[340px] sm:h-[420px] hidden lg:block">
           {cards.map((p, i) => (
             <div
               key={p.id}
