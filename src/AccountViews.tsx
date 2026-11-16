@@ -61,14 +61,14 @@ function DemoNote({ onPick }: { onPick: (email: string) => void }) {
 const input =
   'w-full px-3 py-2.5 rounded-lg bg-brand-bg border border-brand-border text-sm text-white placeholder:text-brand-text-dim outline-none focus:border-brand-primary/60 transition-colors';
 const primary =
-  'px-4 py-2.5 rounded-lg bg-brand-primary text-[#1a0d07] text-sm font-semibold hover:brightness-110 transition disabled:opacity-50 cursor-pointer';
-const secondary = 'px-3.5 py-2 rounded-lg border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer';
+  'px-6 py-3 rounded-full bg-brand-primary text-[#1a1a14] text-[12px] font-semibold uppercase tracking-[0.08em] shadow-[0_6px_24px_-8px_rgba(223,232,160,0.55)] hover:brightness-105 transition disabled:opacity-50 cursor-pointer';
+const secondary = 'px-5 py-2.5 rounded-full border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer';
 
 function Page({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="max-w-4xl mx-auto px-5 sm:px-8 py-8 pb-28">
-        <h1 className="text-2xl font-semibold tracking-tight text-white">{title}</h1>
+        <h1 className="text-3xl sm:text-4xl font-light tracking-tight text-white">{title}</h1>
         <p className="text-sm text-brand-text-dim mt-1 mb-8">{subtitle}</p>
         {children}
       </div>

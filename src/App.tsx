@@ -311,7 +311,7 @@ const VideoPitch = () => {
                  <div className="w-8 h-8 rounded-full border border-white/20 bg-black/40 flex items-center justify-center">
                     <Mic className="w-3 h-3 text-white" />
                  </div>
-                 <div className="px-3 py-1 bg-brand-primary/20 backdrop-blur-md rounded-lg border border-white/10 text-[10px] font-bold uppercase tracking-widest">
+                 <div className="px-3 py-1 bg-brand-primary/20 backdrop-blur-md rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-widest">
                     Live Pitch
                  </div>
               </div>
@@ -507,7 +507,7 @@ const NAV_ITEMS: { id: string; label: string; icon: React.ElementType }[] = [
   { id: 'profile', label: 'My profile', icon: User },
 ];
 
-const AVATAR_TONES = ['bg-[#ff6b3d]/15 text-[#ff8a66]', 'bg-[#e9c46a]/15 text-[#e9c46a]', 'bg-[#7dd3c0]/15 text-[#7dd3c0]', 'bg-[#c4a7e7]/15 text-[#c4a7e7]'];
+const AVATAR_TONES = ['bg-[#dfe8a0]/15 text-[#dfe8a0]', 'bg-white/[0.06] text-stone-200', 'bg-white/[0.06] text-stone-300', 'bg-white/[0.08] text-stone-100'];
 const initials = (name: string) => name.split(' ').map((p) => p[0]).slice(0, 2).join('');
 
 const PersonCard = ({ user, index, onOpen, onInvite }: { user: typeof MOCK_USERS[number]; index: number; onOpen: () => void; onInvite: () => void }) => (
@@ -537,7 +537,7 @@ const PersonCard = ({ user, index, onOpen, onInvite }: { user: typeof MOCK_USERS
       ))}
     </div>
     <div className="flex gap-2 mt-5 pt-4 border-t border-brand-border">
-      <button onClick={onInvite} className="flex-1 py-2 rounded-lg bg-brand-primary text-[#1a0d07] text-sm font-semibold hover:brightness-110 transition cursor-pointer">
+      <button onClick={onInvite} className="flex-1 py-2 rounded-lg bg-brand-primary text-[#1a1a14] text-sm font-semibold hover:brightness-110 transition cursor-pointer">
         Invite to team
       </button>
       <button onClick={onOpen} className="px-3.5 py-2 rounded-lg border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer">
@@ -1057,7 +1057,7 @@ const NotificationsView = ({ onMatchDemo }: { onMatchDemo: () => void }) => {
                 </p>
                 {notif.type === 'request' && (
                   <div className="flex gap-2 mt-4">
-                    <button className="px-4 py-1.5 bg-brand-primary text-white text-[10px] font-bold uppercase rounded-lg shadow-md shadow-brand-primary/20">Accept</button>
+                    <button className="px-4 py-1.5 bg-brand-primary text-white text-[10px] font-bold uppercase rounded-full shadow-md shadow-brand-primary/20">Accept</button>
                     <button className="px-4 py-1.5 bg-brand-bg border border-brand-border text-white/40 text-[10px] font-bold uppercase rounded-lg">Ignore</button>
                   </div>
                 )}
@@ -1500,7 +1500,7 @@ const HackathonTimeline = () => {
                          </div>
                       </div>
                       {/* Synergy Invite Overlay */}
-                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-primary text-[9px] font-bold text-white rounded-lg opacity-0 group-hover/avatar:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-primary text-[9px] font-bold text-white rounded-full opacity-0 group-hover/avatar:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                         RE-INVITE PARTNER
                       </div>
                     </div>
@@ -1798,7 +1798,7 @@ const ProfileView = () => {
               >
                 <div className="h-44 bg-brand-bg relative">
                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                   <div className="absolute top-4 right-4 px-3 py-1 bg-brand-primary rounded-lg text-[10px] font-bold uppercase">Public</div>
+                   <div className="absolute top-4 right-4 px-3 py-1 bg-brand-primary rounded-full text-[10px] font-bold uppercase">Public</div>
                 </div>
                 <div className="p-6 space-y-4">
                   <div className="space-y-1">
@@ -1939,7 +1939,7 @@ export default function App() {
       <aside className="w-60 border-r border-brand-border bg-brand-bg px-4 py-5 flex-col justify-between shrink-0 hidden lg:flex">
         <div>
           <button onClick={() => setActiveTab('feed')} className="flex items-center gap-2.5 px-2 mb-7 cursor-pointer">
-            <span className="w-8 h-8 rounded-lg bg-brand-primary grid place-items-center text-[#1a0d07] font-bold text-sm">HS</span>
+            <span className="w-8 h-8 rounded-lg bg-brand-primary grid place-items-center text-[#1a1a14] font-bold text-sm">HS</span>
             <span className="text-[15px] font-semibold tracking-tight text-white">Hack Searcher</span>
           </button>
           <nav className="space-y-0.5">
@@ -1991,7 +1991,7 @@ export default function App() {
                     <Menu className="w-5 h-5" />
                   </button>
                   <div>
-                    <h1 className="text-2xl font-semibold tracking-tight text-white">{isPanicMode ? 'Urgent requests' : 'People'}</h1>
+                    <h1 className="text-3xl sm:text-4xl tracking-tight text-white leading-tight">{isPanicMode ? <><span className="font-light">Urgent </span><span className="font-bold">requests</span></> : <><span className="font-light">Find your </span><span className="font-bold">hackathon team</span></>}</h1>
                     <p className="text-sm text-brand-text-dim mt-0.5">
                       {isPanicMode ? 'Teams that need someone today.' : `${visibleUsers.length} ${visibleUsers.length === 1 ? 'student' : 'students'} looking for a hackathon team`}
                     </p>

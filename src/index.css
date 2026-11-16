@@ -1,20 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-brand-bg: #121110;
-  --color-brand-surface: #1a1917;
-  --color-brand-border: #2a2825;
-  --color-brand-primary: #ff6b3d;
-  --color-brand-secondary: #e9c46a;
-  --color-brand-text-dim: rgba(245, 240, 232, 0.55);
+  /* Charcoal + soft lime */
+  --color-brand-bg: #1d1d1d;
+  --color-brand-surface: #252525;
+  --color-brand-border: #333333;
+  --color-brand-primary: #dfe8a0;
+  --color-brand-secondary: #cfd3c4;
+  --color-brand-text-dim: rgba(242, 242, 240, 0.55);
 }
 
 @layer base {
   body {
     @apply bg-brand-bg text-stone-100 antialiased font-sans;
   }
+}
+
+/* Thin vertical column lines over the page, like the reference layout */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background-image: repeating-linear-gradient(to right, transparent 0 calc(20% - 1px), rgba(255, 255, 255, 0.035) calc(20% - 1px) 20%);
 }
