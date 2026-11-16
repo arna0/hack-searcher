@@ -102,7 +102,7 @@ const TeamAgreementBuilder = () => {
         <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="space-y-1">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-brand-primary/20 rounded-xl">
+              <div className="p-2 bg-brand-primary/20 rounded-full">
                  <ClipboardCheck className="w-6 h-6 text-brand-primary" />
               </div>
               <h1 className="text-3xl font-bold text-white tracking-tight ">Team Agreement Builder</h1>
@@ -113,7 +113,7 @@ const TeamAgreementBuilder = () => {
             <button className="flex items-center gap-2 px-6 py-3 bg-brand-surface border border-brand-border rounded-2xl text-xs font-bold uppercase tracking-widest hover:border-brand-primary/50 transition-all">
               <Download className="w-4 h-4" /> Download Kit
             </button>
-            <button className="flex items-center gap-2 px-6 py-3 bg-brand-primary text-white rounded-2xl text-xs font-bold uppercase tracking-widest shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
+            <button className="flex items-center gap-2 px-6 py-3 bg-brand-primary text-white rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
               <Send className="w-4 h-4" /> Team Sync
             </button>
           </div>
@@ -537,7 +537,7 @@ const PersonCard = ({ user, index, onOpen, onInvite }: { user: typeof MOCK_USERS
       ))}
     </div>
     <div className="flex gap-2 mt-5 pt-4 border-t border-brand-border">
-      <button onClick={onInvite} className="flex-1 py-2 rounded-lg bg-brand-primary text-[#1a1a14] text-sm font-semibold hover:brightness-110 transition cursor-pointer">
+      <button onClick={onInvite} className="flex-1 py-2 rounded-full bg-brand-primary text-[#1a1a14] text-sm font-semibold hover:brightness-110 transition cursor-pointer">
         Invite to team
       </button>
       <button onClick={onOpen} className="px-3.5 py-2 rounded-lg border border-brand-border text-sm text-stone-200 hover:border-white/30 transition-colors cursor-pointer">
@@ -871,7 +871,7 @@ const AIMatchmakingView = () => {
                       <p className="text-xs text-brand-primary font-mono font-bold uppercase tracking-widest">{match.role}</p>
                     </div>
                   </div>
-                  <div className="bg-brand-primary/10 border border-brand-primary/30 px-4 py-2 rounded-2xl">
+                  <div className="bg-brand-primary/10 border border-brand-primary/30 px-4 py-2 rounded-full">
                     <span className="text-lg font-bold text-brand-primary font-mono tracking-tight">{match.percentage}%</span>
                     <span className="text-[8px] block font-mono text-brand-primary uppercase font-bold text-center">Match</span>
                   </div>
@@ -897,7 +897,7 @@ const AIMatchmakingView = () => {
                   ))}
                 </div>
 
-                <button className="w-full py-4 bg-brand-surface border border-brand-primary/20 hover:border-brand-primary hover:bg-brand-primary/5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-brand-primary transition-all flex items-center justify-center gap-2 group/btn cursor-pointer">
+                <button className="w-full py-4 bg-brand-surface border border-brand-primary/20 hover:border-brand-primary hover:bg-brand-primary/5 rounded-full text-[11px] font-bold uppercase tracking-widest text-brand-primary transition-all flex items-center justify-center gap-2 group/btn cursor-pointer">
                   Initialize Connection
                   <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
@@ -989,7 +989,7 @@ const MatchOverlay = ({ onClose }: { onClose: () => void }) => (
       <div className="space-y-4">
         <button 
           onClick={onClose}
-          className="w-full py-4 bg-brand-primary text-white font-bold rounded-2xl shadow-lg shadow-brand-primary/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
+          className="w-full py-4 bg-brand-primary text-white font-bold rounded-full shadow-lg shadow-brand-primary/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
         >
           Message Sarah
         </button>
@@ -1171,7 +1171,7 @@ const ChatView = () => {
                {msg.type === 'invite' ? (
                  <div className="bg-brand-surface border border-brand-primary/30 rounded-[32px] p-6 max-w-sm w-full space-y-4 shadow-xl shadow-brand-primary/10">
                     <div className="flex items-center gap-4">
-                       <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
+                       <div className="w-12 h-12 rounded-full bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
                           <Zap className="w-6 h-6 text-brand-primary animate-pulse" />
                        </div>
                        <div>
@@ -1184,7 +1184,7 @@ const ChatView = () => {
                        Your stack compatibility is rated at <span className="text-green-400">98%</span>.
                     </p>
                     <div className="grid grid-cols-2 gap-3 pt-2">
-                       <button className="py-2.5 bg-brand-primary text-white text-[10px] font-bold uppercase rounded-xl shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
+                       <button className="py-2.5 bg-brand-primary text-white text-[10px] font-bold uppercase rounded-full shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
                           Accept
                        </button>
                        <button className="py-2.5 bg-brand-bg border border-brand-border text-white/60 text-[10px] font-bold uppercase rounded-xl hover:text-white transition-all">
@@ -1222,7 +1222,7 @@ const ChatView = () => {
                 className="flex-1 bg-transparent border-none outline-none text-xs font-mono py-2 text-white placeholder:text-brand-text-dim/50"
               />
               <button className="p-2 text-brand-text-dim hover:text-brand-primary transition-colors cursor-pointer"><Smile className="w-4 h-4" /></button>
-              <button className="w-10 h-10 bg-brand-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+              <button className="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all cursor-pointer">
                 <Send className="w-4 h-4" />
               </button>
            </div>
@@ -1282,7 +1282,7 @@ const MyProjectsView = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowForm(!showForm)}
-            className="px-6 py-3 bg-brand-primary text-white font-bold rounded-2xl shadow-lg shadow-brand-primary/30 flex items-center gap-2 transition-all cursor-pointer"
+            className="px-6 py-3 bg-brand-primary text-white font-bold rounded-full shadow-lg shadow-brand-primary/30 flex items-center gap-2 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             {showForm ? 'Cancel' : 'New Project'}
@@ -1347,7 +1347,7 @@ const MyProjectsView = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="px-8 py-4 bg-brand-primary text-white font-bold rounded-2xl shadow-xl shadow-brand-primary/40 flex items-center gap-3 relative overflow-hidden group cursor-pointer"
+                    className="px-8 py-4 bg-brand-primary text-white font-bold rounded-full shadow-xl shadow-brand-primary/40 flex items-center gap-3 relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     <Zap className="w-4 h-4" />
@@ -1470,7 +1470,7 @@ const HackathonTimeline = () => {
                 <div className="text-[10px] font-mono text-brand-secondary font-bold uppercase tracking-widest mb-1">{item.date}</div>
                 <h3 className="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">{item.event}</h3>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/30 rounded-xl">
+              <div className="flex items-center gap-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/30 rounded-full">
                  <Trophy className="w-4 h-4 text-brand-primary" />
                  <span className="text-sm font-bold text-brand-primary">{item.rank}</span>
               </div>
@@ -1724,7 +1724,7 @@ const ProfileView = () => {
               <button className="p-3 bg-brand-surface rounded-2xl border border-brand-border hover:border-brand-primary/50 transition-all">
                 <Github className="w-5 h-5" />
               </button>
-              <button className="px-6 py-3 bg-brand-primary text-white font-bold rounded-2xl shadow-lg shadow-brand-primary/30 active:scale-95 transition-all">
+              <button className="px-6 py-3 bg-brand-primary text-white font-bold rounded-full shadow-lg shadow-brand-primary/30 active:scale-95 transition-all">
                 Hire Me
               </button>
             </div>
@@ -1743,7 +1743,7 @@ const ProfileView = () => {
             <div className="md:col-span-2 md:row-span-2 bg-brand-surface border border-brand-border rounded-[32px] p-8 flex flex-col justify-between relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 blur-[80px] -mr-32 -mt-32 group-hover:bg-brand-primary/20 transition-all" />
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-brand-primary/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center">
                   <Cpu className="w-6 h-6 text-brand-primary" />
                 </div>
                 <h3 className="text-2xl font-bold leading-tight">Master Level Architecture</h3>
@@ -1939,7 +1939,7 @@ export default function App() {
       <aside className="w-60 border-r border-brand-border bg-brand-bg px-4 py-5 flex-col justify-between shrink-0 hidden lg:flex">
         <div>
           <button onClick={() => setActiveTab('feed')} className="flex items-center gap-2.5 px-2 mb-7 cursor-pointer">
-            <span className="w-8 h-8 rounded-lg bg-brand-primary grid place-items-center text-[#1a1a14] font-bold text-sm">HS</span>
+            <span className="w-8 h-8 rounded-full bg-brand-primary grid place-items-center text-[#1a1a14] font-bold text-sm">HS</span>
             <span className="text-[15px] font-semibold tracking-tight text-white">Hack Searcher</span>
           </button>
           <nav className="space-y-0.5">
