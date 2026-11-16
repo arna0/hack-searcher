@@ -18,7 +18,7 @@ Students who want to join hackathons hit the same three problems: they don't kno
 - 🤝 **Team Agreement Builder**: write down roles, deadlines and action items before the hackathon starts
 - 📁 **My Projects**: create a project, describe the idea, see active teams
 - 🔔 **Notifications and chat** between team members
-- 🎨 **One design system for web and mobile**: a futuristic dark theme (indigo and cyan) exported as a Flutter `ThemeData` in [`src/theme.dart`](src/theme.dart), so the mobile app looks the same as the web prototype
+- 🎨 **One design system for web and mobile**: a warm dark theme (coral and gold) exported as a Flutter `ThemeData` in [`src/theme.dart`](src/theme.dart), so the mobile app looks the same as the web prototype
 
 ## Backend
 
@@ -31,7 +31,7 @@ Express + SQLite (built into Node 22.13+). Passwords are hashed with scrypt; sig
 | `GET/POST /api/hackathons` | Hackathon list; anyone signed in can add one |
 | `GET/POST /api/teams` · `GET /api/teams/:id` | Teams with members and open roles |
 | `POST /api/teams/:id/invite` · `POST /api/teams/:id/join` | Owner invites a person, or a person asks to join |
-| `GET /api/invites` · `POST /api/invites/:id/accept|decline` | Answer invites and requests; accepting adds the person to the team |
+| `GET /api/invites` · `POST /api/invites/:id/accept` or `/decline` | Answer invites and requests; accepting adds the person to the team |
 | `GET /api/conversations` · `GET /api/messages/:userId` · `POST /api/messages` | Direct messages with unread counts |
 
 A fresh database gets sample people, hackathons and a team (sample password `demo1234`). CI signs up two users, creates a team, invites, accepts and sends a message on every push.
@@ -56,7 +56,7 @@ npm run build && npm start      # app + API on http://localhost:8080
 
 ## Status
 
-UI prototype with demo data. Next steps: real event sources, user accounts, and matching by skills.
+Working backend with accounts, teams, invites and messages. Next steps: sign-in screens in the web app, importing real hackathon listings, and matching by skills.
 
 ## Author
 
